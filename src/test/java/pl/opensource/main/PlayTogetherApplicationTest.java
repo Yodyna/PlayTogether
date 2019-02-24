@@ -1,4 +1,4 @@
-package pl.opensource;
+package pl.opensource.main;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -7,7 +7,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class PlayTogetherApplicationTests {
+public class PlayTogetherApplicationTest {
 
 	@Test
 	public void contextLoads() {

@@ -1,4 +1,4 @@
-package pl.opensource.controller;
+package pl.opensource.user;
 
 import java.security.Principal;
 
@@ -11,9 +11,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import pl.opensource.model.User;
-import pl.opensource.service.UserService;
 
 @Controller
 public class UserController {
@@ -33,12 +30,11 @@ public class UserController {
 
 	@PostMapping("/register")
 	public String addUser(@ModelAttribute User user, BindingResult bindResult) {
-		if (bindResult.hasErrors())
+		if (bindResult.hasErrors()) {
 			return "registerForm";
-		else {
-			userService.add(user);
-			return "registerSuccess";
 		}
+		userService.add(user);
+		return "registerSuccess";
 	}
 	
 	@GetMapping("/login")

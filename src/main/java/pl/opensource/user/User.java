@@ -1,7 +1,8 @@
-package pl.opensource.model;
+package pl.opensource.user;
 
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,7 +13,14 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import pl.opensource.advertisement.Advertisement;
+import pl.opensource.user.role.UserRole;
+
 @Entity
+@Data
+@NoArgsConstructor
 public class User {
 
 	@Id
@@ -30,59 +38,9 @@ public class User {
 	
 	@OneToMany(mappedBy = "user")
 	private Set<Advertisement> advertisements = new HashSet<>();
-	
-
-	public Set<Advertisement> getAdvertisements() {
-		return advertisements;
-	}
-
-	public void setAdvertisements(Set<Advertisement> advertisements) {
-		this.advertisements = advertisements;
-	}
-
-	public Set<UserRole> getRoles() {
-		return roles;
-	}
-
-	public void setRoles(Set<UserRole> roles) {
-		this.roles = roles;
-	}
-
-	public User() {
-		super();
-	}
 
 	public User(String username, String password) {
 		this.username = username;
 		this.password = password;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", username=" + username + ", password=" + password + "]";
 	}
 }

@@ -1,4 +1,4 @@
-package pl.opensource.service;
+package pl.opensource.user;
 
 import java.util.List;
 
@@ -13,11 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-
-import pl.opensource.model.User;
-import pl.opensource.model.UserRole;
-import pl.opensource.repository.UserRepository;
-import pl.opensource.repository.UserRoleRepository;
+import pl.opensource.user.role.UserRole;
+import pl.opensource.user.role.UserRoleRepository;
 
 @Service
 public class UserService {

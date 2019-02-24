@@ -10,9 +10,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-import pl.opensource.model.User;
-import pl.opensource.model.UserRole;
-import pl.opensource.repository.UserRepository;
+import pl.opensource.user.User;
+import pl.opensource.user.UserRepository;
+import pl.opensource.user.role.UserRole;
 
 public class MyUserDetailsService implements UserDetailsService {
 	

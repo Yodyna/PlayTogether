@@ -27,8 +27,8 @@ public class AdvertisementService {
 	
 	@GetMapping("/")
 	public ResponseEntity<List<Advertisement>> getAllAdvertisements() {
-		List<Advertisement> alladvertisements = advertisementRepository.findAll();
-		return ResponseEntity.status(HttpStatus.ACCEPTED).body(alladvertisements);
+		List<Advertisement> allAdvertisements = advertisementRepository.findAll();
+		return ResponseEntity.status(HttpStatus.ACCEPTED).body(allAdvertisements);
 	}
 	
 	@PostMapping("/")

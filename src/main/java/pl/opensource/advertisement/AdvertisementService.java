@@ -1,4 +1,4 @@
-package pl.opensource.service;
+package pl.opensource.advertisement;
 
 import java.security.Principal;
 import java.util.List;
@@ -14,9 +14,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import pl.opensource.model.Advertisement;
-import pl.opensource.repository.AdvertisementRepository;
-
 @RestController
 @RequestMapping("/advertisement")
 public class AdvertisementService {
@@ -30,8 +27,8 @@ public class AdvertisementService {
 	
 	@GetMapping("/")
 	public ResponseEntity<List<Advertisement>> getAllAdvertisements() {
-		List<Advertisement> FindAlladvertisements = advertisementRepository.findAll();
-		return ResponseEntity.status(HttpStatus.ACCEPTED).body(FindAlladvertisements);
+		List<Advertisement> allAdvertisements = advertisementRepository.findAll();
+		return ResponseEntity.status(HttpStatus.ACCEPTED).body(allAdvertisements);
 	}
 	
 	@PostMapping("/")
@@ -42,17 +39,14 @@ public class AdvertisementService {
 	
 	@PostMapping("/user/")
 	public ResponseEntity<?> addAdvertisementByUser(Principal principal, @RequestBody Advertisement newAdvertisement) {
-		
 		return ResponseEntity.status(HttpStatus.CREATED).build();
 	}
 	
 	@GetMapping("/user/{id}")
 	public ResponseEntity<?> getAdvertisementByUser(Principal principal, @PathVariable long id) {
-		Advertisement findByIdAndUserUsername = advertisementRepository.findByIdAndUserUsername(id, principal.getName());
-		if(findByIdAndUserUsername != null)
-			return ResponseEntity.status(HttpStatus.OK).body(findByIdAndUserUsername);
-		else
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+		Advertisement findedAdvertisement = advertisementRepository.findByIdAndUsername(id, principal.getName());
+		return findedAdvertisement != null ? ResponseEntity.status(HttpStatus.OK).body(findedAdvertisement)
+				: ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
 	}
 	
 	@DeleteMapping("/user/{id}")

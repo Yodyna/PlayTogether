@@ -1,12 +1,10 @@
-package pl.opensource.repository;
+package pl.opensource.advertisement;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import pl.opensource.model.Advertisement;
-
 @Repository
 public interface AdvertisementRepository extends JpaRepository<Advertisement,Long> {
 	
-	 Advertisement findByIdAndUserUsername(Long idAdvertisement, String string);
+	Advertisement findByIdAndUsername(Long id, String username);
 }

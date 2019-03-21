@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface AdvertisementRepository extends JpaRepository<Advertisement,Long> {
 	
-	Advertisement findByIdAndUsername(Long id, String username);
+	Advertisement findByIdAndUserUsername(Long id, String username);
 }

@@ -7,32 +7,34 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-	  	@Override
-	    protected void configure(HttpSecurity http) throws Exception {	  		
-	        http
-	        .formLogin().loginPage("/login").permitAll().and()
-	        .csrf().disable()
-	        .authorizeRequests()
-	            .antMatchers("/register","/actuator/info","/actuator/health").permitAll()
-	            .anyRequest().authenticated() 
-	            .and()
-	        .logout()
-               .logoutUrl("/logmeout")
-                   .logoutSuccessUrl("/login")
-                   .permitAll();
-	    }    
-	    
-	    @Bean
-		public UserDetailsService myUserDetailsService() {
-			return new MyUserDetailsService();
-		} 
-	    
-	    @Autowired
-	    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-	        auth.inMemoryAuthentication().withUser("admin").password("{noop}admin@123").roles("admin");
-	    }
+	@Autowired
+	PasswordEncoder passwordEncoder;
+
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+		http.formLogin().loginPage("/login").permitAll().and().csrf().disable().authorizeRequests()
+				.antMatchers("/register", "/actuator/info", "/actuator/health").permitAll().anyRequest().authenticated()
+				.and().logout().logoutUrl("/logmeout").logoutSuccessUrl("/login").permitAll();
+	}
+
+	@Bean
+	public UserDetailsService myUserDetailsService() {
+		return new MyUserDetailsService();
+	}
+
+	@Override
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+		auth.userDetailsService(myUserDetailsService()).passwordEncoder(passwordEncoder());
+	}
+
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
 }

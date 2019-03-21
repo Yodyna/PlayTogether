@@ -44,7 +44,7 @@ public class AdvertisementService {
 	
 	@GetMapping("/user/{id}")
 	public ResponseEntity<?> getAdvertisementByUser(Principal principal, @PathVariable long id) {
-		Advertisement findedAdvertisement = advertisementRepository.findByIdAndUsername(id, principal.getName());
+		Advertisement findedAdvertisement = advertisementRepository.findByIdAndUserUsername(id, principal.getName());
 		return findedAdvertisement != null ? ResponseEntity.status(HttpStatus.OK).body(findedAdvertisement)
 				: ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
 	}

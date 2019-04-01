@@ -2,7 +2,6 @@ package pl.opensource.advertisement;
 
 import java.security.Principal;
 import java.util.List;
-import pl.opensource.advertisement.Sport;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,37 +25,21 @@ public class AdvertisementService {
 		this.advertisementRepository = advertisementRepository;
 	}
 	
-	@GetMapping
+	@GetMapping("/")
 	public ResponseEntity<List<Advertisement>> getAllAdvertisements() {
 		List<Advertisement> allAdvertisements = advertisementRepository.findAll();
-		List<Advertisement> polishDescriptionsInSports = getPolishDescriptionsInSports(allAdvertisements);
-		return ResponseEntity.status(HttpStatus.ACCEPTED).body(polishDescriptionsInSports);
-	}
-
-	private List<Advertisement> getPolishDescriptionsInSports(List<Advertisement> allAdvertisements) {
-		for(Advertisement advertisement: allAdvertisements)
-			for(Sport s: Sport.values()) 
-				if(s.getAbbreviation().equals(advertisement.getSport())) 
-					advertisement.setSport(s.getDesctiptionPL());
-		return allAdvertisements;
+		return ResponseEntity.status(HttpStatus.ACCEPTED).body(allAdvertisements);
 	}
 	
-	@PostMapping
+	@PostMapping("/")
 	public ResponseEntity<?> addAdvertisements(@RequestBody List<Advertisement> advertisements) {
 		advertisements.forEach(advertisementRepository::save);
 		return ResponseEntity.status(HttpStatus.CREATED).build();
 	}
 	
-	@PostMapping("/user")
+	@PostMapping("/user/")
 	public ResponseEntity<?> addAdvertisementByUser(Principal principal, @RequestBody Advertisement newAdvertisement) {
-		for(Sport s: Sport.values()) {
-			if(s.getDesctiptionPL().equals(newAdvertisement.getSport())) {
-				newAdvertisement.setSport(s.getAbbreviation());
-				advertisementRepository.save(newAdvertisement);
-				return ResponseEntity.status(HttpStatus.CREATED).build();
-			}
-		}
-		return ResponseEntity.status(HttpStatus.PRECONDITION_FAILED).build();
+		return ResponseEntity.status(HttpStatus.CREATED).build();
 	}
 	
 	@GetMapping("/user/{id}")
@@ -71,4 +54,5 @@ public class AdvertisementService {
 		advertisementRepository.delete(advertisement);
 		return ResponseEntity.accepted().build();
 	}
+
 }

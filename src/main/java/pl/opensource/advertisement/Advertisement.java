@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
 
 import lombok.Data;
 import pl.opensource.user.User;
@@ -20,7 +21,7 @@ public class Advertisement {
 	@GeneratedValue
 	private Long id;
 	
-	@Column(length = 32)
+	@Column(length = 4)
 	private String sport;
 	
 	@Column(length = 32)

@@ -20,7 +20,7 @@ public class Advertisement {
 	@GeneratedValue
 	private Long id;
 	
-	@Column(length = 32)
+	@Column(length = 4)
 	private String sport;
 	
 	@Column(length = 32)

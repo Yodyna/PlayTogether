@@ -34,16 +34,31 @@ public class AdvertisementService {
 	}
 
 	private List<Advertisement> getPolishDescriptionsInSports(List<Advertisement> allAdvertisements) {
-		for(Advertisement advertisement: allAdvertisements)
-			for(Sport s: Sport.values()) 
-				if(s.getAbbreviation().equals(advertisement.getSport())) 
+		for(Advertisement advertisement: allAdvertisements) {
+			for(Sport s: Sport.values()) {
+				if(s.getAbbreviation().equals(advertisement.getSport())) {
 					advertisement.setSport(s.getDesctiptionPL());
+				}
+			}
+		}
 		return allAdvertisements;
+	}
+	
+	private List<Advertisement> setAbbreviationsInSports(List<Advertisement> advertisements) {
+		for(Advertisement advertisement: advertisements) {
+			for(Sport s: Sport.values()) {
+				if(s.getDesctiptionPL().equals(advertisement.getSport())) {
+					advertisement.setSport(s.getAbbreviation());
+				}
+			}
+		}
+		return advertisements;
 	}
 	
 	@PostMapping
 	public ResponseEntity<?> addAdvertisements(@RequestBody List<Advertisement> advertisements) {
-		advertisements.forEach(advertisementRepository::save);
+		List<Advertisement> setAbbreviationsInSports = setAbbreviationsInSports(advertisements);
+		setAbbreviationsInSports.forEach(advertisementRepository::save);
 		return ResponseEntity.status(HttpStatus.CREATED).build();
 	}
 	

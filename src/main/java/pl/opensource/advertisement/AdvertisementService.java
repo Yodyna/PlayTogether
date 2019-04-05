@@ -2,6 +2,7 @@ package pl.opensource.advertisement;
 
 import java.security.Principal;
 import java.util.List;
+
 import pl.opensource.advertisement.Sport;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,10 +21,16 @@ import org.springframework.web.bind.annotation.RestController;
 public class AdvertisementService {
 	
 	private AdvertisementRepository advertisementRepository;
+	private TimeOfGameRepository timeOfGameRepository;
 	
 	@Autowired
 	public void setAdvertisementRepository(AdvertisementRepository advertisementRepository) {
 		this.advertisementRepository = advertisementRepository;
+	}
+	
+	@Autowired
+	public void setTimeOfGameRepository(TimeOfGameRepository timeOfGameRepository) {
+		this.timeOfGameRepository = timeOfGameRepository;
 	}
 	
 	@GetMapping
@@ -67,7 +74,8 @@ public class AdvertisementService {
 		for(Sport s: Sport.values()) {
 			if(s.getDesctiptionPL().equals(newAdvertisement.getSport())) {
 				newAdvertisement.setSport(s.getAbbreviation());
-				advertisementRepository.save(newAdvertisement);
+				Advertisement save = advertisementRepository.save(newAdvertisement);
+				System.out.println("Sprawdzam poprawnosc " + save.getTimeOfGame().toString());
 				return ResponseEntity.status(HttpStatus.CREATED).build();
 			}
 		}

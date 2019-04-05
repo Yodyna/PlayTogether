@@ -35,7 +35,6 @@ public enum Sport {
 	Squash("WSF", "World Squash Federation", "Squash"),
 	Other("OTH", "Another", "Inny");
 	
-	
 	private String abbreviation;
 	private String descriptionEN;
 	private String descriptionPL;

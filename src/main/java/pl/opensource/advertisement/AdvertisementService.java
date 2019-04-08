@@ -4,6 +4,8 @@ import java.security.Principal;
 import java.util.List;
 
 import pl.opensource.advertisement.Sport;
+import pl.opensource.user.User;
+import pl.opensource.user.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,16 +23,16 @@ import org.springframework.web.bind.annotation.RestController;
 public class AdvertisementService {
 	
 	private AdvertisementRepository advertisementRepository;
-	private TimeOfGameRepository timeOfGameRepository;
+	private UserRepository userRepository;
+	
+	@Autowired
+	public void setUserRepository(UserRepository userRepository) {
+		this.userRepository = userRepository;
+	}
 	
 	@Autowired
 	public void setAdvertisementRepository(AdvertisementRepository advertisementRepository) {
 		this.advertisementRepository = advertisementRepository;
-	}
-	
-	@Autowired
-	public void setTimeOfGameRepository(TimeOfGameRepository timeOfGameRepository) {
-		this.timeOfGameRepository = timeOfGameRepository;
 	}
 	
 	@GetMapping
@@ -63,8 +65,10 @@ public class AdvertisementService {
 	}
 	
 	@PostMapping
-	public ResponseEntity<?> addAdvertisements(@RequestBody List<Advertisement> advertisements) {
+	public ResponseEntity<?> addAdvertisements(Principal principal, @RequestBody List<Advertisement> advertisements) {
+		User user = userRepository.findByUsername(principal.getName());
 		List<Advertisement> setAbbreviationsInSports = setAbbreviationsInSports(advertisements);
+		setAbbreviationsInSports.forEach(advertisement -> advertisement.setUser(user));
 		setAbbreviationsInSports.forEach(advertisementRepository::save);
 		return ResponseEntity.status(HttpStatus.CREATED).build();
 	}

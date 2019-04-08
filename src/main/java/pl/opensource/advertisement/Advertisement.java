@@ -12,14 +12,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import pl.opensource.benefit.BenefitCard;
 import pl.opensource.user.User;
 
 @Entity
@@ -53,13 +53,14 @@ public class Advertisement {
 	@JoinColumn(name = "advertisement_id", referencedColumnName="id_advertisement")
 	private Set<TimeOfGame> timeOfGame = new HashSet<>();
     	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User user;
 
-	@ManyToMany
-	@JoinTable(name ="creditCard_choice",
-			joinColumns = @JoinColumn(name = "creditCard_id"),
-			inverseJoinColumns = @JoinColumn(name = "id_advertisement"))
-	private Set<BenefitCard> benefitCards = new HashSet<>();
+//	@ManyToMany
+//	@JoinTable(name ="creditCard_choice",
+//			joinColumns = @JoinColumn(name = "creditCard_id"),
+//			inverseJoinColumns = @JoinColumn(name = "id_advertisement"))
+//	private Set<BenefitCard> benefitCards = new HashSet<>();
 }

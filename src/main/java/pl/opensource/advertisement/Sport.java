@@ -48,7 +48,7 @@ public enum Sport {
 	public String getDesctiptionPL() {
 		return descriptionPL;
 	}
-	
+
 	public String getAbbreviation() {
 		return abbreviation;
 	}

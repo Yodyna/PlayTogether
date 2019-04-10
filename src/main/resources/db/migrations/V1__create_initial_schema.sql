@@ -1,7 +1,6 @@
-create table advertisement (id_advertisement bigint not null auto_increment, city varchar(32), date_ofcreate datetime, description varchar(512), sport varchar(4), street varchar(32), url varchar(64), user_id bigint, primary key (id_advertisement)) engine=MyISAM;
+create table advertisement (id_advertisement bigint not null auto_increment, actual_number_of_participants integer not null, city varchar(32), date_ofcreate datetime, description varchar(512), max_number_of_participants integer not null, min_number_of_participants integer not null, sport varchar(4), street varchar(32), url varchar(64), user_id bigint, primary key (id_advertisement)) engine=MyISAM;
 create table benefit_card (id bigint not null, name_of_benefit_card varchar(255), primary key (id)) engine=MyISAM;
 create table hibernate_sequence (next_val bigint) engine=MyISAM;
-insert into hibernate_sequence values ( 1 );
 insert into hibernate_sequence values ( 1 );
 create table time_of_game (id_time_of_game bigint not null auto_increment, date datetime, advertisement_id bigint, primary key (id_time_of_game)) engine=MyISAM;
 create table user (id bigint not null auto_increment, password varchar(64) not null, username varchar(32) not null, primary key (id)) engine=MyISAM;

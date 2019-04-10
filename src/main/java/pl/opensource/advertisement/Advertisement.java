@@ -57,7 +57,13 @@ public class Advertisement {
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User user;
-
+	
+	private int minNumberOfParticipants;
+	
+	private int actualNumberOfParticipants;
+	
+	private int maxNumberOfParticipants;
+	
 //	@ManyToMany
 //	@JoinTable(name ="creditCard_choice",
 //			joinColumns = @JoinColumn(name = "creditCard_id"),

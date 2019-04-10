@@ -75,6 +75,8 @@ public class AdvertisementService {
 	
 	@PostMapping("/user")
 	public ResponseEntity<?> addAdvertisementByUser(Principal principal, @RequestBody Advertisement newAdvertisement) {
+		User user = userRepository.findByUsername(principal.getName());
+		newAdvertisement.setUser(user);
 		for(Sport s: Sport.values()) {
 			if(s.getDesctiptionPL().equals(newAdvertisement.getSport())) {
 				newAdvertisement.setSport(s.getAbbreviation());

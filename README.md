@@ -1,3 +1,3 @@
 # PlayTogether
 
- [PlayTogether.pl](http://ZagrajmyRazem.pl)
+ [visit to PlayTogether](http://ZagrajmyRazem.pl)

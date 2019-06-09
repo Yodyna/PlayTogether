@@ -1,6 +1,8 @@
 package pl.opensource.advertisement;
 
+
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 import pl.opensource.advertisement.Sport;
@@ -26,17 +28,14 @@ public class AdvertisementService {
 	private UserRepository userRepository;
 	
 	@Autowired
-	public void setUserRepository(UserRepository userRepository) {
+	public AdvertisementService(AdvertisementRepository advertisementRepository, UserRepository userRepository) {
+		super();
+		this.advertisementRepository = advertisementRepository;
 		this.userRepository = userRepository;
 	}
 	
-	@Autowired
-	public void setAdvertisementRepository(AdvertisementRepository advertisementRepository) {
-		this.advertisementRepository = advertisementRepository;
-	}
-	
 	@GetMapping
-	public ResponseEntity<List<Advertisement>> getAllAdvertisements() {
+	public ResponseEntity<List<Advertisement>> getAdvertisements() {
 		List<Advertisement> allAdvertisements = advertisementRepository.findAll();
 		List<Advertisement> polishDescriptionsInSports = getPolishDescriptionsInSports(allAdvertisements);
 		return ResponseEntity.status(HttpStatus.ACCEPTED).body(polishDescriptionsInSports);
@@ -64,8 +63,8 @@ public class AdvertisementService {
 		return advertisements;
 	}
 	
-	@PostMapping
-	public ResponseEntity<?> addAdvertisements(Principal principal, @RequestBody List<Advertisement> advertisements) {
+	@PostMapping("/")
+	public ResponseEntity<?> createAdvertisements(Principal principal, @RequestBody List<Advertisement> advertisements) {
 		User user = userRepository.findByUsername(principal.getName());
 		List<Advertisement> setAbbreviationsInSports = setAbbreviationsInSports(advertisements);
 		setAbbreviationsInSports.forEach(advertisement -> advertisement.setUser(user));
@@ -74,30 +73,101 @@ public class AdvertisementService {
 	}
 	
 	@PostMapping("/user")
-	public ResponseEntity<?> addAdvertisementByUser(Principal principal, @RequestBody Advertisement newAdvertisement) {
+	public ResponseEntity<?> createAdvertisement(Principal principal, @RequestBody Advertisement newAdvertisement) {
 		User user = userRepository.findByUsername(principal.getName());
 		newAdvertisement.setUser(user);
+		List<User> participants = newAdvertisement.getParticipants();
+		participants.add(user);
+		newAdvertisement.setParticipants(participants);
 		for(Sport s: Sport.values()) {
 			if(s.getDesctiptionPL().equals(newAdvertisement.getSport())) {
 				newAdvertisement.setSport(s.getAbbreviation());
-				Advertisement save = advertisementRepository.save(newAdvertisement);
-				System.out.println("Sprawdzam poprawnosc " + save.getTimeOfGame().toString());
+				advertisementRepository.save(newAdvertisement);
 				return ResponseEntity.status(HttpStatus.CREATED).build();
 			}
 		}
 		return ResponseEntity.status(HttpStatus.PRECONDITION_FAILED).build();
 	}
 	
+	@GetMapping("/user")
+	public ResponseEntity<Object> getAdvertisementByUser(Principal principal) {
+		List<Advertisement> advertisementList = advertisementRepository.findByUserUsername(principal.getName());
+		List<Advertisement> polishDescriptionsInSports = getPolishDescriptionsInSports(advertisementList);
+		return ResponseEntity.status(HttpStatus.ACCEPTED).body(polishDescriptionsInSports);
+	}
+	
+	@GetMapping("/isParticipant/{id}")
+	public ResponseEntity<?> isParticipant(Principal principal, @PathVariable long id) {
+		Advertisement advertisement = advertisementRepository.findById(id).get();
+		long count = advertisement.getParticipants().stream().filter( u -> u.getUsername().equals(principal.getName())).count();
+		return count != 0? ResponseEntity.status(HttpStatus.ACCEPTED).body(true) : ResponseEntity.status(HttpStatus.ACCEPTED).body(false);
+	}
+	
+	@GetMapping("/getParticipantCount/{id}")
+	public ResponseEntity<?> getParticipantCount(Principal principal, @PathVariable long id) {
+		Advertisement advertisement = advertisementRepository.findById(id).get();
+		int size = advertisement.getParticipants().size();
+		return ResponseEntity.status(HttpStatus.OK).body(size);
+	}
+	
+	@GetMapping("/{id}")
+	public ResponseEntity<?> getAdvertisementByID(@PathVariable long id) {
+		Advertisement findedAdvertisement = advertisementRepository.findById(id).get();
+		for(Sport s: Sport.values()) {
+			if(s.getAbbreviation().equals(findedAdvertisement.getSport())) {
+				findedAdvertisement.setSport(s.getDesctiptionPL());
+			}
+		}
+		return findedAdvertisement != null ? ResponseEntity.status(HttpStatus.OK).body(findedAdvertisement)
+				: ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+	}
+	
+
 	@GetMapping("/user/{id}")
-	public ResponseEntity<?> getAdvertisementByUser(Principal principal, @PathVariable long id) {
+	public ResponseEntity<?> getAdvertisement(Principal principal, @PathVariable long id) {
 		Advertisement findedAdvertisement = advertisementRepository.findByIdAndUserUsername(id, principal.getName());
 		return findedAdvertisement != null ? ResponseEntity.status(HttpStatus.OK).body(findedAdvertisement)
 				: ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
 	}
 	
-	@DeleteMapping("/user/{id}")
-	public ResponseEntity<?> deleteAdvertisementByUser(Principal principal, @RequestBody Advertisement advertisement) {
-		advertisementRepository.delete(advertisement);
-		return ResponseEntity.accepted().build();
+	@GetMapping("/{sport}/{city}")
+	public ResponseEntity<?> getAdvertisementSetBySportAndCity(@PathVariable String sport, @PathVariable String city) {
+		for(Sport s: Sport.values()) {
+			if(s.getDesctiptionPL().equals(sport)) {
+				List<Advertisement> findAllBySportAndCity = advertisementRepository.findAllBySportAndCity(s.getAbbreviation(), city);
+				List<Advertisement> advertisementListInPolishDescription = getPolishDescriptionsInSports(findAllBySportAndCity);
+				return ResponseEntity.status(HttpStatus.CREATED).body(advertisementListInPolishDescription);
+			}
+		}
+		return ResponseEntity.status(HttpStatus.CONFLICT).build();
+	}
+	
+	@PostMapping("/joinToAdvertisement/{id}")
+	public ResponseEntity<?> addUserToParticipant(Principal principal, @PathVariable long id) {
+		Advertisement advertisement = advertisementRepository.findById(id).get();
+		User user = userRepository.findByUsername(principal.getName());
+		List<User> participants = advertisement.getParticipants();
+		participants.add(user);
+		advertisementRepository.save(advertisement);
+		return ResponseEntity.status(HttpStatus.CREATED).build();
+	}
+	
+	@DeleteMapping("/removeToAdvertisement/{id}")
+	public ResponseEntity<?> removeUserToParticipant(Principal principal, @PathVariable long id) {
+		Advertisement advertisement = advertisementRepository.findById(id).get();
+		User user = userRepository.findByUsername(principal.getName());
+		List<User> participants = advertisement.getParticipants();
+		participants.remove(user);
+		advertisementRepository.save(advertisement);
+		return ResponseEntity.status(HttpStatus.ACCEPTED).build();
+	}
+	
+	@GetMapping("/sport")
+	public ResponseEntity<?> getSportList() {
+		List<String> sports = new ArrayList<String>();
+		for(Sport sport: Sport.values()) {
+			sports.add(sport.getDesctiptionPL());
+		}
+		return ResponseEntity.accepted().body(sports);
 	}
 }

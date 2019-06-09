@@ -18,12 +18,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		.httpBasic().and()
 		.csrf().disable()
 		.authorizeRequests()
-				.antMatchers("/register", "/actuator/info", "/actuator/health","/login", "/user/add","/advertisement").permitAll()
+				.antMatchers("/actuator/info", "/actuator/health", "/login", "/user/register", "/advertisement", "/advertisement/sport", "/advertisement/{id}", "/advertisement/{sport}/{city}", "/advertisement/getParticipantCount/{id}").permitAll()
 				.anyRequest().authenticated()
 				.and()
 		.logout()
 		.logoutUrl("/logmeout")
-			.logoutSuccessUrl("/login").permitAll();
+		.invalidateHttpSession(true)
+		.deleteCookies("JSESSIONID");
 	}
 
 	@Bean

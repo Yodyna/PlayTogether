@@ -1,5 +1,6 @@
 package pl.opensource.user;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,15 +10,14 @@ import org.springframework.security.core.userdetails.User.UserBuilder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import pl.opensource.user.detail.UserDetail;
+import pl.opensource.user.detail.UserDetailRepository;
 import pl.opensource.user.role.UserRole;
 import pl.opensource.user.role.UserRoleRepository;
 
@@ -31,12 +31,8 @@ public class UserService {
 	private UserRoleRepository roleRepository;
 	
 	@Autowired
-	public void setUserRepository(UserRepository userRepository) {
+	public UserService(UserRepository userRepository, UserRoleRepository roleRepository, UserDetailRepository userDetailRepository) {
 		this.userRepository = userRepository;
-	}
-
-	@Autowired
-	public void setRoleRepository(UserRoleRepository roleRepository) {
 		this.roleRepository = roleRepository;
 	}
 
@@ -47,48 +43,46 @@ public class UserService {
 	}
 	
 	@GetMapping("/")
-	public ResponseEntity<List<User>> getAllUsers() {
+	public ResponseEntity<List<User>> getUsers() {
 		List<User> users = userRepository.findAll();
 		return ResponseEntity.status(HttpStatus.ACCEPTED).body(users);
 	}
 	
-	@PostMapping("/add")
-	public ResponseEntity<?> addUser(@RequestBody User user) {
+	@PostMapping("/register")
+	public ResponseEntity<?> createUser(@RequestBody User user) {
+		
+		if(userRepository.findByUsername(user.getUsername()) == null) {
+			encoderPassword(user);
+			userRepository.save(user);
+			return ResponseEntity.status(HttpStatus.CREATED).build();
+		} else {
+			return ResponseEntity.status(HttpStatus.CONFLICT).build();
+		}
+	}
+
+	private void encoderPassword(User user) {
 		PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
 		final UserBuilder userBuilder = org.springframework.security.core.userdetails.User.builder().passwordEncoder(encoder::encode);	
 		UserDetails user12 = userBuilder
-	            .username(user.getUsername())
-	            .password(user.getPassword())
-	            .roles("USER")
-	            .build();
+		        .username(user.getUsername())
+		        .password(user.getPassword())
+		        .roles("USER")
+		        .build();
 		user.setPassword(user12.getPassword().substring(8));
 		UserRole defaultRole = roleRepository.findByRole(DEFAULT_ROLE);
 		user.getRoles().add(defaultRole);
-		userRepository.save(user);
-		return ResponseEntity.status(HttpStatus.CREATED).build();
 	}
 	
 	@PostMapping("/")
-	public ResponseEntity<?> addUsers(@RequestBody List<User> users) {
+	public ResponseEntity<?> createUsers(@RequestBody List<User> users) {
 		users.forEach(userRepository::save);
 		return ResponseEntity.status(HttpStatus.CREATED).build();
 	}
 	
-	@GetMapping("/{id}")
-	public ResponseEntity<User> getUser(@PathVariable Long id) {
-		User user = userRepository.getOne(id);
-		return ResponseEntity.accepted().body(user);
+	@GetMapping("/detail")
+	public ResponseEntity<?> getUserDetail(Principal principal) {
+		User user = userRepository.findByUsername(principal.getName());
+		UserDetail userDetail = user.getUserDetail();
+		return ResponseEntity.status(HttpStatus.ACCEPTED).body(userDetail);
 	}
-	
-	@PutMapping("/{id}")
-	public ResponseEntity<?> putUser(@RequestBody User user) {
-		userRepository.save(user);
-		return ResponseEntity.status(HttpStatus.CREATED).build();
-	}
-	
-	@DeleteMapping("/{id}")
-	public ResponseEntity<?> deleteUser(@RequestBody User user) {
-		userRepository.delete(user);
-		return ResponseEntity.accepted().build();
-	}	
 }

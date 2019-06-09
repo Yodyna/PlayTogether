@@ -36,6 +36,7 @@ public enum Sport {
 	Other("OTH", "Another", "Inny");
 	
 	private String abbreviation;
+	@SuppressWarnings("unused")
 	private String descriptionEN;
 	private String descriptionPL;
 	

@@ -1,0 +1,100 @@
+<div class="row">
+  <div class="col-4">
+    <div class="list-group" id="list-tab" role="tablist">
+      <a class="list-group-item list-group-item-action active"
+        id="list-home-list" 
+        data-toggle="list" 
+        href="#list-home" 
+        role="tab" 
+        aria-controls="home">
+        <fa-icon class="fa-1x" [icon]="iconUser"></fa-icon>
+        Strona główna
+      </a>
+      <a class="list-group-item list-group-item-action" 
+        id="list-profile-list" 
+        data-toggle="list" 
+        href="#list-profile" 
+        role="tab" 
+        aria-controls="profile"
+        (click)="getUserDetail()">
+        <fa-icon class="fa-1x" [icon]="iconCard"></fa-icon>
+        Dane osobowe
+      </a>
+      <a class="list-group-item list-group-item-action"
+        id="list-advertisement-list" data-toggle="list"
+        href="#list-advertisement"
+        role="tab"
+        aria-controls="advertisement"
+        (click)="getAdvertisementArrayByUsername()">
+        <fa-icon class="fa-1x" [icon]="iconEvent"></fa-icon>
+        Moje wydarzenia
+      </a>
+      <a class="list-group-item list-group-item-action"
+        id="list-messages-list"
+        data-toggle="list"
+        href="#list-messages"
+        role="tab"
+        aria-controls="messages">
+        <fa-icon class="fa-1x" [icon]="iconMessage"></fa-icon>
+        Wiadomości</a>
+      <a class="list-group-item list-group-item-action"
+        id="list-settings-list"
+        data-toggle="list"
+        href="#list-settings"
+        role="tab"
+        aria-controls="settings">
+        <fa-icon class="fa-1x" [icon]="iconSetting"></fa-icon>
+        Ustawienia</a>
+    </div>
+  </div>
+  <div class="col-8">
+    <div class="tab-content" id="nav-tabContent">
+      <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
+        <h3>Cześć, {{ session?.name }}</h3>
+        <div id="version">
+          <div class="actualWork">Obecna wersja systemu to 1.0. Na tym poziomie możesz:</div>
+          <ul id="description" class="list-group">
+            <li class="list-group-item list-group-item-action">Utworzyć wydarzenie</li>
+            <li class="list-group-item list-group-item-action">Zapisać się do dowolnego wydarzenia</li>
+            <li class="list-group-item list-group-item-action">Zaaktualizować swoje dane osobowe w zakładce "Dane osobowe"</li>
+          </ul>
+          <div class="actualWork">Ciągle trwają prace nad:</div>
+          <ul class="list-group">
+            <li (click)="onNavigate()" class="list-group-item list-group-item-action" id="navigate">Lista jest na tyle duża, że odsyłam do trello, gdzie wszelkie zmiany na serwerze są opisane <i class="fa fa-2x fa-trello" aria-hidden="true"></i> </li>
+          </ul>
+        </div>
+      </div>
+      <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">
+        <ul class="profile list-group">
+            <li class="list-group-item list-group-item-action"><span>Niektóre informacje mogą być widoczne dla innych osób</span></li>
+            <li class="list-group-item list-group-item-action"><span>NAZWA</span>  <span>{{ session?.name }}</span><span></span></li>
+            <li class="list-group-item list-group-item-action"><span>DATA URODZENIA</span><span>{{ userDetail?.birthday }}</span><i class="fa fa-angle-right" aria-hidden="true"></i></li>
+            <li (click)="openDialog('gender', userDetail.gender)" class="list-group-item list-group-item-action"><span>PŁEĆ</span>{{ userDetail?.gender }}<i class="fa fa-angle-right" aria-hidden="true"></i></li>
+            <li class="list-group-item list-group-item-action"><span>HASŁO</span><span></span></li>
+        </ul>
+
+        <ul class="profile list-group">
+            <li class="list-group-item list-group-item-action"><span>Informacje dodatkowe</span><i class="fa fa-angle-right" aria-hidden="true"></i></li>
+            <li (click)="openDialog('email', userDetail.email)" class="list-group-item list-group-item-action"><span>E-MAIL</span><span>{{ userDetail?.email | undefined }}</span><i class="fa fa-angle-right" aria-hidden="true"></i></li>
+            <li (click)="openDialog('phone', userDetail.phone)" class="list-group-item list-group-item-action"><span>TELEFON</span><span>{{ userDetail?.phone | undefined }}</span><i class="fa fa-angle-right" aria-hidden="true"></i></li>
+        </ul>
+      </div>
+      <div class="tab-pane fade" id="list-advertisement" role="tabpanel" aria-labelledby="list-advertisement-list">
+          <ul id="event" class="list-group">
+              <li class="list-group-item" *ngFor="let advertisement of advertisementArray">
+                <a [routerLink]="['/detail/', advertisement.id]"  style="text-decoration: none; color: inherit">
+                  <div class="row">
+                    <span id="sport" [title]="'Sport: ' + advertisement.sport"><fa-icon [icon]="iconSport"></fa-icon> {{ advertisement.sport | firstUppercase }} </span>
+                    <span id="city" [title]="'Miasto: ' + advertisement.city"><fa-icon [icon]="iconCity"></fa-icon> {{ advertisement.city | firstUppercase | truncate:[16, '...'] }} </span>
+                    <span id="street" [title]="'Ulica: ' + advertisement.street"><fa-icon [icon]="iconSteet"></fa-icon> {{ advertisement.street | firstUppercase | truncate:[16, '...'] }} </span>
+                    <span id="calendar" appTimeOfGameView [timeOfGameArray]="advertisement.timeOfGame"></span>
+                  </div>
+                </a>
+              </li>
+          </ul>
+      </div>
+      <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">Wkrótce !</div>
+      <div class="tab-pane fade" id="list-settings" role="tabpanel" aria-labelledby="list-settings-list">Wkrótce !</div>
+    </div>
+  </div>
+</div>

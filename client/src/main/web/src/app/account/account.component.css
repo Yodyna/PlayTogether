@@ -1,0 +1,54 @@
+.row > span {
+    margin-right: 1.5rem;
+}
+#event > li:hover {
+    background-color: rgb(165, 187, 230);
+}
+#sport, #city, #street {
+    width: 150px;
+}
+.month {
+    font: 12px Arial, sans-serif;
+}
+.numberCircle {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    padding: 0.2rem; 
+    background: #fff;
+    color: rgb(0, 0, 0);;
+    text-align: center; 
+    font: 14px Arial, sans-serif;
+    border: 1px solid rgb(0, 0, 0);
+    box-shadow: 0 2px 6px rgba(0,0,0,1);
+}  
+#calendar > div {
+    width: 40px;
+} 
+#calendar > * {
+    margin-right: 0.2rem;
+} 
+#calendar {
+    width: 250px;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: flex-start;
+}
+.profile > li {
+    display: flex;
+    justify-content: space-between; 
+}
+.profile {
+    margin: 1.2rem;
+}
+#navigate:hover {
+    color: rgb(126, 106, 241);
+    text-decoration: underline;
+}
+#description > li:hover {
+    color: rgb(126, 106, 241);
+}
+.actualWork {
+    margin: 1rem;
+}

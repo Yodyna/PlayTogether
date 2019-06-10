@@ -5,7 +5,7 @@ import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { Advertisement } from '../../models/advertisement';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { AdvertisementService } from 'src/app/services/advertisement.service';
 
 @Component({

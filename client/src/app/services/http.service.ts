@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, BehaviorSubject, Subject } from 'rxjs';
 import { Session } from '../models/session';
-import { CookieService } from 'angular2-cookie/services/cookies.service';
 import { UserDetail } from '../models/userDetail';
 import { environment } from '../../environments/environment';
 
@@ -14,7 +13,7 @@ export class HttpService {
   private session = new BehaviorSubject<Session>({authenticated: false});
   private backendUrl = environment.backendUrl;
 
-  constructor(private http: HttpClient, private cookieService: CookieService) {
+  constructor(private http: HttpClient) {
   }
 
   authenticate(credentials): Observable<Session> {

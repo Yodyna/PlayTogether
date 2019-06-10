@@ -4,7 +4,7 @@ import { AdvertisementService } from '../../services/advertisement.service';
 import { ActivatedRoute } from '@angular/router';
 import { HttpService } from '../../services/http.service';
 import { Session } from '../../models/session';
-import { MatSnackBar, MatSnackBarConfig } from '@angular/material';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-advertisement-details',

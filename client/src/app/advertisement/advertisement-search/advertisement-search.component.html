@@ -1,0 +1,21 @@
+<div id="advertisementList">
+  <div
+    class="advertisement border rounded"
+    *ngFor="let advertisement of advertisements; let i = index">
+    <a [routerLink]="['/detail/', advertisement.id]"  style="text-decoration: none; color: inherit">
+      <div class="row">
+        <div class="col">
+          <span [title]="'Sport: ' + advertisement.sport"><fa-icon [icon]="iconSport"></fa-icon> {{ advertisement.sport | firstUppercase }} </span>
+          <span [title]="'Miasto: ' + advertisement.city"><fa-icon [icon]="iconCity"></fa-icon> {{ advertisement.city | firstUppercase | truncate:[16, '...'] }} </span>
+          <span [title]="'Ulica: ' + advertisement.street"><fa-icon [icon]="iconSteet"></fa-icon> {{ advertisement.street | firstUppercase | truncate:[16, '...'] }} </span>
+        </div>
+        <div class="col">
+          <span title=""><fa-icon [icon]="iconUsers"></fa-icon>{{advertisement.minNumberOfParticipants}}/{{advertisement.maxNumberOfParticipants}}</span>
+          <span id="calendar" appTimeOfGameView [timeOfGameArray]="advertisement.timeOfGame">
+            <fa-icon [icon]="iconCalendar"></fa-icon>
+          </span>
+        </div>
+      </div>
+    </a>
+  </div>
+</div>

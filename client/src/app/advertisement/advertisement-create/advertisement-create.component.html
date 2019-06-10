@@ -1,0 +1,91 @@
+<div class="form-container">
+  <h3>{{ title }}</h3>
+  <form>
+    <div id="content">
+      <div id="basicInformation">
+        <h4>Podstawowe dane</h4>
+
+        <mat-form-field class="example-full-width">
+          <input type="text" placeholder="Wybierz sport" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto" [(ngModel)]="advertisement.sport">
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+              {{option}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+            <input matInput placeholder="Wpisz Miasto" value="" [(ngModel)]="advertisement.city" name="city">
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+            <input matInput placeholder="Wpisz Ulicę" value="" [(ngModel)]="advertisement.street" name="street">
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+            <input matInput placeholder="Podaj URL do miejsca (opcjonalnie)" value="" [(ngModel)]="advertisement.url" name="url">
+        </mat-form-field>
+
+        <div id="details">
+          <div *ngFor="let timeOfGame of timeOfGameList; let i = index">
+            <div id="event">
+              <ejs-datetimepicker placeholder="Wybierz datę wydarzenia" (change)='onChange($event, i)' [(value)]='timeOfGame.date'></ejs-datetimepicker>
+              <button id="addEvent" (click)=addEvent() class="btn"><i class="fa fa-plus"></i></button>
+              <ng-container *ngIf="i>0">
+                <button id="removeEvent" (click)=removeEvent(timeOfGame) class="btn"><i class="fa fa-minus"></i></button>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="participants">
+        <h4>Uczestnicy</h4>
+          <mat-form-field class="example-full-width">
+              <input matInput placeholder="Podaj minimalną ilość uczestników" value="" [(ngModel)]="advertisement.minNumberOfParticipants" name="minNumberOfParticipants">
+          </mat-form-field>
+
+          <mat-form-field >
+              <input matInput placeholder="Podaj maksymalną ilość uczestników" value="" [(ngModel)]="advertisement.maxNumberOfParticipants" name="maxNumberOfParticipants">
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width">
+            <!-- <input matInput #message maxlength="256" placeholder="Opis wydarzenia" [(ngModel)]="advertisement.description" name="description"> -->
+            <textarea matInput
+              cdkTextareaAutosize
+              #autosize="cdkTextareaAutosize"
+              cdkAutosizeMinRows="3"
+              cdkAutosizeMaxRows="5"
+              #message maxlength="256"
+              placeholder="Opis wydarzenia"
+              [(ngModel)]="advertisement.description"
+              name="description">
+            </textarea>
+            <mat-hint align="end">{{message.value.length}} / 256</mat-hint>
+          </mat-form-field>
+      </div>
+
+      <div id="benefits">
+          <h4>Dodatkowe korzyści / W rozwoju</h4>
+          <mat-card class="result">
+            <mat-card-content>
+              <h5 class="example-h2">Result</h5>
+          
+              <section class="example-section">
+                <mat-checkbox
+                    class="example-margin"
+                    [(ngModel)]="checked"
+                    [(indeterminate)]="indeterminate"
+                    [labelPosition]="labelPosition"
+                    [disabled]="disabled"
+                    name = "checkbox">
+                  Wkrótce !
+                </mat-checkbox>
+              </section>
+            </mat-card-content>
+          </mat-card>
+      </div>
+      <button *ngIf="!isHidden" class="btn btn-success submit" [hidden]="create" (click)=submit()>Wyślij zgłoszenie</button>
+    </div>  
+  </form>
+</div>

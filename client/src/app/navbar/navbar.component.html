@@ -1,0 +1,56 @@
+<nav class="shadow-lg p-3 mb-5 bg-white rounde navbar navbar-expand-lg navbar-light bg-light justify-content-between">
+  <a class="navbar-brand" routerLink="/">ZagrajmyRazem</a>
+    <div id="inputSearch" class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="Sport Miasto" aria-label="Username" aria-describedby="addon-wrapping" name="variableSeach" [(ngModel)]="variableSearch">
+        <a>
+          <div>
+            <button type="button" class="btn btn-secondary" (click)=search()><i class="fa fa-search"></i></button>
+          </div>
+        </a>
+    </div>
+
+    <div *ngIf="session.authenticated == false; then noSession; else hasSession"> </div>
+    <ng-template #noSession>
+      <div>
+        <a routerLink="/login">
+        <button type="button" class="btn btn-primary">Zaloguj/Zarejestruj</button></a>
+      </div>
+    </ng-template>
+    <ng-template #hasSession>
+      <div id="right-navbar">
+
+        <div id="notification" class="btn-group">
+          <button  type="button" class="btn btn-info" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="fa fa-bell fa-1x" aria-hidden="true"></i>
+          </button>
+          <div class="dropdown-menu dropdown-menu-lg-right">
+              <a class="dropdown-item">Wkrótce</a>
+          </div>
+        </div>
+
+        <div id="message" class="btn-group">
+          <button  type="button" class="btn btn-info" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="fa fa-envelope fa-1x" aria-hidden="true"></i>
+          </button>
+          <div class="dropdown-menu dropdown-menu-lg-right">
+              <a class="dropdown-item">Wkrótce</a>
+          </div>
+        </div>
+        
+        <div id="account" class="btn-group">
+          <button  type="button" class="btn btn-success" id="navbarDropdownMenuLink" data-display="static" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="fa fa-user"></i>
+          </button>
+          <div class="dropdown-menu dropdown-menu-lg-right">
+            <button routerLink="/account" class="dropdown-item" type="button">Moje konto</button>
+            <button (click)="logOut()" routerLink="/login" class="dropdown-item" type="button">Wyloguj mnie</button>
+          </div>
+        </div>
+        
+        <a id="create" routerLink="/create">
+          <button  type="button" class="btn btn-success"><div id="addEvent"><div class="padding-right">Dodaj</div><div><i  class="fa fa-plus fa-1x"></i></div></div></button>
+        </a>
+        
+      </div>
+    </ng-template>
+  </nav> 

@@ -1,0 +1,101 @@
+#addEvent {
+    background-color: dodgerblue; 
+}
+#addEvent:hover {
+    background-color: rgb(46, 46, 204);
+}
+#removeEvent {
+    background-color: #f03c3c;
+}
+#removeEvent:hover {
+    background-color: #ff0000;
+}
+h3 {
+    margin-left: 10vh;
+}
+.form-container {
+    display: flex; /* or inline-flex */
+    flex-flow: column wrap;
+}
+
+#content  {
+    display: flex;
+    min-width: 300px;
+    padding-left: 10vh;
+    padding-right: 10vh;
+    margin: 1.25rem;
+    margin-left: 6.25rem;
+    margin-right: 6.25rem;
+    align-items: flex-start;
+    flex-flow: column wrap;
+    flex-wrap: wrap;
+    height: 700px;
+    box-shadow: 0 1px 2px rgba(0,0,0,1);
+}
+
+#content > div {
+    margin: 1.25rem;
+    padding: 1.25rem;
+    min-width: 400px;
+    box-shadow: 0 1px 2px rgba(0,0,0,1);
+    display: flex;
+    flex-flow: column nowrap;
+}
+#participants {
+    height: 350px;
+}
+.submit {
+    margin: 1.25rem;
+    padding: 1.25rem;
+}
+#event  {
+    display: flex;
+    flex-flow: row nowrap;
+}
+#event > * {
+    margin-right: 1.25rem;
+}
+form {
+    box-shadow: 0 1px 2px rgba(0,0,0,1);
+}
+input[disabled] {
+    color:rgb(0, 0, 0);
+}
+textarea[disabled] {
+    color:rgb(0, 0, 0);
+}
+.month {
+    font: 12px Arial, sans-serif;
+}
+.test {
+    background: #1abc9c;
+    color: blue;
+}
+.numberCircle {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    padding: 2px; 
+    background: #fff;
+    color: rgb(0, 0, 0);;
+    text-align: center; 
+    font: 14px Arial, sans-serif;
+    border: 1px solid rgb(0, 0, 0);
+    box-shadow: 0 2px 6px rgba(0,0,0,1);
+}
+.numberCircle:hover {
+    background: rgb(96, 177, 96);
+    box-shadow: 0px 8px 16px rgba(0,0,0,1);
+}
+#calendar {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    justify-content: flex-start;
+}
+#calendar > * {
+    margin: 0.125rem;
+}
+.my-snack-bar {
+    background-color: #E8EAF6;
+}

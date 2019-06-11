@@ -66,6 +66,6 @@ export class AdvertisementService {
   }
 
   getAllSport() {
-    return this.http.get<string[]>(`${this.backendUrl}advertisement/sport`);
+    return this.http.get<string[]>(`${this.backendUrl}/advertisement/sport`);
   }
 }

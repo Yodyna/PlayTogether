@@ -66,17 +66,87 @@
       </div>
       <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">
         <ul class="profile list-group">
-            <li class="list-group-item list-group-item-action"><span>Niektóre informacje mogą być widoczne dla innych osób</span></li>
-            <li class="list-group-item list-group-item-action"><span>NAZWA</span>  <span>{{ session?.name }}</span><span></span></li>
-            <li class="list-group-item list-group-item-action"><span>DATA URODZENIA</span><span>{{ userDetail?.birthday }}</span><i class="fa fa-angle-right" aria-hidden="true"></i></li>
-            <li (click)="openDialog('gender', userDetail.gender)" class="list-group-item list-group-item-action"><span>PŁEĆ</span>{{ userDetail?.gender }}<i class="fa fa-angle-right" aria-hidden="true"></i></li>
-            <li class="list-group-item list-group-item-action"><span>HASŁO</span><span></span></li>
+          <li class="list-group-item list-group-item-action">
+              <span>Niektóre informacje mogą być widoczne dla innych osób</span>
+          </li>
+          <li class="list-group-item list-group-item-action">
+            <div class="container">
+              <div class="row">
+                <div class="col-sm">
+                  NAZWA
+                </div>
+                <div class="col-sm center">
+                    {{ session?.name }}
+                </div>
+                <div class="col-sm end">
+                  <i class="fa fa-angle-right" aria-hidden="true"></i>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li class="list-group-item list-group-item-action">
+            <div class="container">
+              <div class="row">
+                <div class="col-sm">
+                  DATA URODZENIA
+                </div>
+                <div class="col-sm center">
+                  {{ userDetail?.birthday }}
+                </div>
+                <div class="col-sm end">
+                  <i class="fa fa-angle-right" aria-hidden="true"></i>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li (click)="openDialog('gender', userDetail.gender)" class="list-group-item list-group-item-action">
+            <div class="container">
+              <div class="row">
+                <div class="col-sm">
+                  PŁEĆ
+                </div>
+                <div class="col-sm center">
+                  {{ userDetail?.gender }}
+                </div>
+                <div class="col-sm end">
+                  <i class="fa fa-angle-right" aria-hidden="true"></i>
+                </div>
+              </div>
+            </div>
+          </li>
         </ul>
 
         <ul class="profile list-group">
-            <li class="list-group-item list-group-item-action"><span>Informacje dodatkowe</span><i class="fa fa-angle-right" aria-hidden="true"></i></li>
-            <li (click)="openDialog('email', userDetail.email)" class="list-group-item list-group-item-action"><span>E-MAIL</span><span>{{ userDetail?.email | undefined }}</span><i class="fa fa-angle-right" aria-hidden="true"></i></li>
-            <li (click)="openDialog('phone', userDetail.phone)" class="list-group-item list-group-item-action"><span>TELEFON</span><span>{{ userDetail?.phone | undefined }}</span><i class="fa fa-angle-right" aria-hidden="true"></i></li>
+           <li class="list-group-item list-group-item-action"><span>Informacje dodatkowe</span></li>
+            <li (click)="openDialog('email', userDetail.email)" class="list-group-item list-group-item-action">
+              <div class="container">
+                <div class="row">
+                  <div class="col-sm">
+                    E-MAIL
+                  </div>
+                  <div class="col-sm center">
+                    {{ userDetail?.email | undefined }}
+                  </div>
+                  <div class="col-sm end">
+                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                  </div>
+                </div>
+              </div>
+            <li (click)="openDialog('phone', userDetail.phone)" class="list-group-item list-group-item-action">
+              <div class="container">
+                <div class="row">
+                  <div class="col-sm">
+                    TELEFON
+                  </div>
+                  <div class="col-sm center">
+                    {{ userDetail?.phone | undefined }}
+                  </div>
+                  <div class="col-sm end">
+                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                  </div>
+                </div>
+              </div>
+            </li>
         </ul>
       </div>
       <div class="tab-pane fade" id="list-advertisement" role="tabpanel" aria-labelledby="list-advertisement-list">

@@ -35,10 +35,6 @@
     align-items: center;
     justify-content: flex-start;
 }
-.profile > li {
-    display: flex;
-    justify-content: space-between; 
-}
 .profile {
     margin: 1.2rem;
 }
@@ -51,4 +47,10 @@
 }
 .actualWork {
     margin: 1rem;
+}
+.center {
+    text-align: center;
+}
+.end {
+    text-align: end;
 }

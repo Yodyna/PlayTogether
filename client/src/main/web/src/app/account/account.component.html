@@ -78,9 +78,6 @@
                 <div class="col-sm center">
                     {{ session?.name }}
                 </div>
-                <div class="col-sm end">
-                  <i class="fa fa-angle-right" aria-hidden="true"></i>
-                </div>
               </div>
             </div>
           </li>
@@ -93,13 +90,10 @@
                 <div class="col-sm center">
                   {{ userDetail?.birthday }}
                 </div>
-                <div class="col-sm end">
-                  <i class="fa fa-angle-right" aria-hidden="true"></i>
-                </div>
               </div>
             </div>
           </li>
-          <li (click)="openDialog('gender', userDetail.gender)" class="list-group-item list-group-item-action">
+          <li (click)="openDialog('gender', userDetail?.gender)" class="list-group-item list-group-item-action">
             <div class="container">
               <div class="row">
                 <div class="col-sm">
@@ -118,7 +112,7 @@
 
         <ul class="profile list-group">
            <li class="list-group-item list-group-item-action"><span>Informacje dodatkowe</span></li>
-            <li (click)="openDialog('email', userDetail.email)" class="list-group-item list-group-item-action">
+            <li (click)="openDialog('email', userDetail?.email)" class="list-group-item list-group-item-action">
               <div class="container">
                 <div class="row">
                   <div class="col-sm">
@@ -132,7 +126,7 @@
                   </div>
                 </div>
               </div>
-            <li (click)="openDialog('phone', userDetail.phone)" class="list-group-item list-group-item-action">
+            <li (click)="openDialog('phone', userDetail?.phone)" class="list-group-item list-group-item-action">
               <div class="container">
                 <div class="row">
                   <div class="col-sm">

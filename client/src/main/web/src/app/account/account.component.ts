@@ -29,8 +29,7 @@ export class AccountComponent implements OnInit {
   iconUsers = faUsers;
   iconCalendar = faCalendarAlt;
   advertisementArray: Array<Advertisement>;
-  userDetail: UserDetail = {email: '', gender: '', phone: '', birthday: null };
-  undefined: 'Nie podano';
+  userDetail: UserDetail;
 
   constructor(private httpService: HttpService, public dialog: MatDialog, private advertisementService: AdvertisementService) { }
 

@@ -22,6 +22,11 @@ public class UserController {
 		return "loginForm";
 	}
 	
+	@GetMapping("")
+	public String index() {
+		return "index";
+	}
+	
 	@RequestMapping("/welcome")
 	@ResponseBody
 	public Principal secured(Principal principal) {

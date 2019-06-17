@@ -10,8 +10,8 @@ import { Advertisement } from '../models/advertisement';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-  private session: Session;
-  private variableSearch = '';
+  session: Session;
+  variableSearch = '';
 
   constructor(private httpService: HttpService, private advertisementService: AdvertisementService) {
   }

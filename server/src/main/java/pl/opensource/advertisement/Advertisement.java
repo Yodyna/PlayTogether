@@ -65,7 +65,7 @@ public class Advertisement {
 	private int maxNumberOfParticipants;
 	
 	@JsonIgnore
-	@ManyToMany(fetch= FetchType.EAGER)
+	@ManyToMany(fetch= FetchType.LAZY) //change to lazy
     @JoinTable(name = "participants",
     		joinColumns = {@JoinColumn(name="advertisement_id", referencedColumnName="id")},
     		inverseJoinColumns = {@JoinColumn(name="user_id", referencedColumnName="id")}

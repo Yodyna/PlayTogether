@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   backendUrl: 'http://localhost:8080'
+  // backendUrl: 'https://zagrajmyrazem.pl:8443'
 };
 
 /*

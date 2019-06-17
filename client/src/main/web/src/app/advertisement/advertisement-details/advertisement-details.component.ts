@@ -13,10 +13,10 @@ import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 })
 export class AdvertisementDetailsComponent implements OnInit {
 
-  private advertisement: Advertisement;
-  private session: Session;
-  private participant: boolean;
-  private params: any;
+  advertisement: Advertisement;
+  session: Session;
+  participant: boolean;
+  params: any;
 
   constructor(
     private advertisementService: AdvertisementService,

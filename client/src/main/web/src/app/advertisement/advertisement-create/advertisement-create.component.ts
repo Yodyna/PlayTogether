@@ -21,7 +21,7 @@ export class AdvertisementCreateComponent {
   isHidden = false;
   title = 'Utwórz nowe wydarzenie';
 
-  private advertisement: Advertisement = {
+  advertisement: Advertisement = {
     sport: null,
     city: null,
     description: null,
@@ -32,8 +32,8 @@ export class AdvertisementCreateComponent {
     minNumberOfParticipants: 1,
     maxNumberOfParticipants: 99
   };
-  private timeOfGame: TimeOfGame;
-  private timeOfGameList: Array<TimeOfGame> = [];
+  timeOfGame: TimeOfGame;
+  timeOfGameList: Array<TimeOfGame> = [];
 
   constructor(
     private httpService: HttpService,
@@ -70,7 +70,7 @@ export class AdvertisementCreateComponent {
     this.timeOfGameList = this.timeOfGameList.filter(p => p !== timeOfGame);
   }
 
-  private _filter(value: string): string[] {
+  _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
     return this.options.filter(option => option.toLowerCase().includes(filterValue));
   }

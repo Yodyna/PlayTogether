@@ -17,7 +17,7 @@ import { AdvertisementService } from '../services/advertisement.service';
   styleUrls: ['./account.component.css']
 })
 export class AccountComponent implements OnInit {
-  private session: Session;
+  session: Session;
   iconUser = faUserCircle;
   iconCard = faIdCard;
   iconEvent = faCalendar;
@@ -29,7 +29,7 @@ export class AccountComponent implements OnInit {
   iconUsers = faUsers;
   iconCalendar = faCalendarAlt;
   advertisementArray: Array<Advertisement>;
-  userDetail: UserDetail;
+  userDetail: UserDetail = {email: '', birthday: null, phone: '', gender: ''};
 
   constructor(private httpService: HttpService, public dialog: MatDialog, private advertisementService: AdvertisementService) { }
 
@@ -47,8 +47,8 @@ export class AccountComponent implements OnInit {
     const dialogRef = this.dialog.open(AccountDialogComponent, {
       data: {name, value}
     });
-
     dialogRef.afterClosed().subscribe(result => {
+      console.log('po zamknieciu' + result);
       this.userDetail[result.name] = result.value;
       this.httpService.updateUserDetail(this.userDetail).subscribe( (p) => {
         this.getAdvertisementArrayByUsername();

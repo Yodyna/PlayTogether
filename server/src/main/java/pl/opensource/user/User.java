@@ -44,10 +44,10 @@ public class User {
 	private Set<UserRole> roles = new HashSet<>();
 	
 	@JsonIgnore
-	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY) //, fetch = FetchType.LAZY
 	private Set<Advertisement> advertisements = new HashSet<>();
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private UserDetail userDetail;
 	
 	public User(String username, String password) {

@@ -13,10 +13,10 @@ export class HttpService {
   private session = new BehaviorSubject<Session>({authenticated: false});
   private backendUrl = environment.backendUrl;
 
-  constructor(private http: HttpClient) {
-  }
+  constructor(private http: HttpClient) {}
 
   authenticate(credentials): Observable<Session> {
+    console.log(this.backendUrl);
     const httpOptions = {
       headers: new HttpHeaders({
        'Authorization': 'Basic ' + btoa(credentials.username + ':' + credentials.password),
@@ -43,6 +43,6 @@ export class HttpService {
   }
 
   getUserDetail() {
-    return this.http.get<UserDetail>(`${this.backendUrl}/user/detail`);
+    return this.http.get(`${this.backendUrl}/user/detail`);
   }
 }

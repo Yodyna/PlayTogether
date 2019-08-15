@@ -1,8 +1,13 @@
+.row{
+    margin: 0;
+    height: 100%;
+    overflow: hidden;
+}
 .row > span {
     margin-right: 1.5rem;
 }
 #event > li:hover {
-    background-color: rgb(165, 187, 230);
+    background-color: rgb(126, 151, 202);
 }
 #sport, #city, #street {
     width: 150px;
@@ -53,4 +58,7 @@
 }
 .end {
     text-align: end;
+}
+.list-group {
+    border: 1px solid rgb(168, 168, 168);
 }

@@ -1,3 +1,28 @@
+.col {
+    display: flex;
+    flex-flow: column nowrap;
+} 
+#content {
+    padding-left: 10vh;
+    padding-right: 10vh;
+    margin: 1.25rem;
+    margin-top: 0.25rem;
+    margin-bottom: 0.25rem;
+    margin-left: 6.25rem;
+    margin-right: 6.25rem;
+} 
+.top {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.top > * {
+    margin: 10px;
+} 
+.card {
+    padding: 10px;
+    border: 1px solid rgb(168, 168, 168);
+}
 #addEvent {
     background-color: dodgerblue; 
 }
@@ -10,49 +35,20 @@
 #removeEvent:hover {
     background-color: #ff0000;
 }
-h3 {
-    margin-left: 10vh;
-}
-.form-container {
-    display: flex; /* or inline-flex */
-    flex-flow: column wrap;
-}
-#content {
-    display: flex;
-    min-width: 300px;
-    padding-left: 10vh;
-    padding-right: 10vh;
-    margin: 1.25rem;
-    margin-left: 6.25rem;
-    margin-right: 6.25rem;
-    align-items: flex-start;
-    flex-flow: column wrap;
-    flex-wrap: wrap;
-    height: 700px;
-    box-shadow: 0 1px 2px rgba(0,0,0,1);
-}
-#content > div {
-    margin: 1.25rem;
-    padding: 1.25rem;
-    min-width: 400px;
-    box-shadow: 0 1px 2px rgba(0,0,0,1);
-    display: flex;
-    flex-flow: column nowrap;
-}
-#participants {
-    height: 350px;
-}
-.submit {
-    margin: 1.25rem;
-    padding: 1.25rem;
-}
 #event  {
     display: flex;
     flex-flow: row nowrap;
 }
 #event > * {
-    margin-right: 1.25rem;
+    margin-right: 1rem;
 }
-form {
-    box-shadow: 0 1px 2px rgba(0,0,0,1);
+@media (max-width: 575.98px) {
+    #content {
+        padding: 1vh;
+        margin: 1.25rem;
+        margin-top: 0.25rem;
+        margin-bottom: 0.25rem;
+        margin-left: 2.25rem;
+        margin-right: 2.25rem;
+    }
 }

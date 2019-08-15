@@ -12,7 +12,7 @@ export interface Advertisement {
     person?: number;
     card?: boolean;
     timeOfGame?: Array<TimeOfGame>;
-    minNumberOfParticipants: number;
-    maxNumberOfParticipants: number;
+    minNumberOfParticipants?: number;
+    maxNumberOfParticipants?: number;
     actualNumberOfParticipants?: number;
 }

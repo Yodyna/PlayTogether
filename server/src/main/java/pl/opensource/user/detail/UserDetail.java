@@ -4,21 +4,19 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import pl.opensource.user.User;
 
 @Data
 @Entity
 @NoArgsConstructor
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class UserDetail {
 
 	@Id
@@ -28,7 +26,7 @@ public class UserDetail {
 	private String email;
 	
 	@Column(nullable = true)
-	private Gender gender;
+	private String gender;
 	
 	@Column(nullable = true)
 	private String phone;
@@ -36,7 +34,7 @@ public class UserDetail {
 	@Column(nullable = true)
 	private Date birthday;
 	
-	@JsonIgnore
-	@OneToOne(mappedBy="userDetail", fetch = FetchType.LAZY)
-	private User user;
+//	@JsonIgnore
+//	@OneToOne(mappedBy="userDetail", fetch = FetchType.LAZY)
+//	private User user;
 }

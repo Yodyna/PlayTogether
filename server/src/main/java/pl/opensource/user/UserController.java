@@ -22,7 +22,7 @@ public class UserController {
 		return "loginForm";
 	}
 	
-	@GetMapping("")
+	@RequestMapping("/")
 	public String index() {
 		return "index";
 	}

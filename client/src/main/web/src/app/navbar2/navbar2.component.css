@@ -1,0 +1,22 @@
+.dropdown {
+    margin-left: 0.3125rem;
+}
+#create {
+    margin-left: 0.3125rem;
+}
+#account, #message, #notification {
+    margin-left: 0.3125rem;
+}
+ul, li {
+    border: 10px static red;
+}
+#right-navbar {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: stretch;
+}
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+}

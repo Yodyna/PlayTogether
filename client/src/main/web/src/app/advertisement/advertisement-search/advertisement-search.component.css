@@ -1,6 +1,7 @@
 #advertisementList {
   display: flex;
   flex-flow: row wrap;
+  justify-content: center;
   padding-left: 10vh;
   padding-right: 10vh;
 }
@@ -9,12 +10,14 @@
   padding: 7px;
   display: flex;
   flex-flow: column wrap;
-  width: 56vh;
-  height: 17vh;
+  width: 350px;
+  height: 110px;
   box-shadow: 0 1px 2px rgba(0,0,0,1);
+  background-color: white;
 }
 .advertisement:hover {
   box-shadow: 0 15px 30px rgba(0,0,0,1);
+  background-color: #d2dcf3;
 }
 span{
   display: flex;

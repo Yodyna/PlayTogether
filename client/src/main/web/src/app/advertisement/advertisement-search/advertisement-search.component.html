@@ -5,12 +5,12 @@
     <a [routerLink]="['/detail/', advertisement.id]"  style="text-decoration: none; color: inherit">
       <div class="row">
         <div class="col">
-          <span [title]="'Sport: ' + advertisement.sport"><fa-icon [icon]="iconSport"></fa-icon> {{ advertisement.sport | firstUppercase }} </span>
+          <span [title]="'Sport: ' + advertisement.sport"><fa-icon [icon]="iconSport"></fa-icon> {{ advertisement.sport | firstUppercase | truncate:[13, '...'] }} </span>
           <span [title]="'Miasto: ' + advertisement.city"><fa-icon [icon]="iconCity"></fa-icon> {{ advertisement.city | firstUppercase | truncate:[16, '...'] }} </span>
           <span [title]="'Ulica: ' + advertisement.street"><fa-icon [icon]="iconSteet"></fa-icon> {{ advertisement.street | firstUppercase | truncate:[16, '...'] }} </span>
         </div>
         <div class="col">
-          <span title=""><fa-icon [icon]="iconUsers"></fa-icon>{{advertisement.minNumberOfParticipants}}/{{advertisement.maxNumberOfParticipants}}</span>
+          <span title=""><fa-icon [icon]="iconUsers"></fa-icon>{{advertisement.actualNumberOfParticipants}}/{{advertisement.maxNumberOfParticipants}}</span>
           <span id="calendar" appTimeOfGameView [timeOfGameArray]="advertisement.timeOfGame">
             <fa-icon [icon]="iconCalendar"></fa-icon>
           </span>

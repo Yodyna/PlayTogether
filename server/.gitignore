@@ -1,3 +1,5 @@
-static/*
+src/main/resources/keystore/*
+src/main/resources/static/*
 application-prod.properties
+appConfig.properties
 target

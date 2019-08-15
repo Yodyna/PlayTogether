@@ -11,21 +11,26 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
+//@EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {	
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
-		.httpBasic().and()
+		.httpBasic()
+		.and()
 		.csrf().disable()
 		.authorizeRequests()
-				.antMatchers("/","/actuator/info", "/actuator/health", "/login", "/user/register", "/advertisement", "/advertisement/sport", "/advertisement/{id}", "/advertisement/{sport}/{city}", "/advertisement/getParticipantCount/{id}").permitAll()
+				.antMatchers("/**", "/index.html", "/resources/**", "/actuator/info", "/actuator/health", "/login", "/user/register", "/advertisement", "/advertisement/sport", "/advertisement/{id}", "/advertisement/{sport}/{city}", "/advertisement/getParticipantCount/{id}").permitAll()
 				.anyRequest().authenticated()
 				.and()
+		.formLogin()
+        .loginPage("/login")
+        .and()
 		.logout()
-		.logoutUrl("/logmeout")
-		.invalidateHttpSession(true)
-		.deleteCookies("JSESSIONID");
+		.logoutUrl("/logmeout");
+//		.invalidateHttpSession(true)
+//		.deleteCookies("JSESSIONID");
 	}
 	
 	@Bean

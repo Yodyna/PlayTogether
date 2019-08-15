@@ -17,9 +17,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedAttributeNode;
+import javax.persistence.NamedEntityGraph;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -28,6 +32,9 @@ import pl.opensource.user.User;
 @Data
 @Entity
 @NoArgsConstructor
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@NamedEntityGraph(name = "Advertisement.detail",
+attributeNodes = @NamedAttributeNode("participants"))
 public class Advertisement {
 	
 	@Id
@@ -55,8 +62,7 @@ public class Advertisement {
 	@JoinColumn(name = "advertisement_id", referencedColumnName="id")
 	private Set<TimeOfGame> timeOfGame = new HashSet<>();
     	
-	@JsonIgnore
-	@ManyToOne(fetch= FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
 	private User user;
 	
@@ -64,12 +70,15 @@ public class Advertisement {
 		
 	private int maxNumberOfParticipants;
 	
-	@JsonIgnore
-	@ManyToMany(fetch= FetchType.LAZY) //change to lazy
+	@JsonBackReference
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "participants",
     		joinColumns = {@JoinColumn(name="advertisement_id", referencedColumnName="id")},
     		inverseJoinColumns = {@JoinColumn(name="user_id", referencedColumnName="id")}
     )
 	private List<User> participants = new ArrayList<>();	
+	
+	@Transient
+	private int actualNumberOfParticipants;
 }
 	

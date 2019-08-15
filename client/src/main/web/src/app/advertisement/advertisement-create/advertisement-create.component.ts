@@ -28,9 +28,7 @@ export class AdvertisementCreateComponent {
     street: null,
     dateofCreate: new Date(),
     date: new Date(),
-    timeOfGame: [],
-    minNumberOfParticipants: 1,
-    maxNumberOfParticipants: 99
+    timeOfGame: []
   };
   timeOfGame: TimeOfGame;
   timeOfGameList: Array<TimeOfGame> = [];

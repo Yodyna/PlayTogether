@@ -31,11 +31,8 @@ export class AdvertisementDetailsComponent implements OnInit {
         this.advertisement = result;
       });
 
-      this.getParticipantCount();
-
       this.httpService.getUsername().subscribe( (result: Session) => {
         this.session = result;
-
         if (result.authenticated) {
           this.isSubscribe();
         }
@@ -43,21 +40,14 @@ export class AdvertisementDetailsComponent implements OnInit {
     });
   }
 
-  getParticipantCount() {
-    this.advertisementService.getParticipantCount(this.params).subscribe( (result: number) => {
-      this.advertisement.actualNumberOfParticipants = result;
-    });
-  }
-
   isSubscribe() {
     this.advertisementService.isParticipant(this.params).subscribe( (p: boolean) => {
       this.participant = p;
-      console.log(p);
     });
   }
 
   onNavigate() {
-    window.open(this.advertisement.url, '_blank');
+    window.open('//' + this.advertisement.url);
   }
 
   snackbar(message: string) {
@@ -79,7 +69,6 @@ export class AdvertisementDetailsComponent implements OnInit {
     this.snackbar('Dołączyłeś do wydarzenia');
     this.advertisementService.addUserToParticipant(this.advertisement.id).subscribe(p => {
       this.isSubscribe();
-      this.getParticipantCount();
     });
   }
 
@@ -87,7 +76,6 @@ export class AdvertisementDetailsComponent implements OnInit {
     this.snackbar('Opuściłeś wydarzenie');
     this.advertisementService.removeToAdvertisement(this.advertisement.id).subscribe(p => {
       this.isSubscribe();
-      this.getParticipantCount();
     });
   }
 }

@@ -59,6 +59,8 @@ import { TimeOfGameViewDirective } from './shared/time-of-game-view.directive';
 import { AccountComponent } from './account/account.component';
 import { AccountDialogComponent } from './account/dialog/account_dialog.component';
 import { UndefinedPipe } from './shared/undefined.pipe';
+import { Navbar2Component } from './navbar2/navbar2.component';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -74,7 +76,8 @@ import { UndefinedPipe } from './shared/undefined.pipe';
     TimeOfGameViewDirective,
     AccountComponent,
     AccountDialogComponent,
-    UndefinedPipe
+    UndefinedPipe,
+    Navbar2Component
   ],
   imports: [
     BrowserModule,
@@ -140,7 +143,7 @@ import { UndefinedPipe } from './shared/undefined.pipe';
     MatTreeModule,
     FontAwesomeModule
   ],
-  providers: [AdvertisementService, HttpService],
+  providers: [AdvertisementService, HttpService, {provide: LocationStrategy, useClass: HashLocationStrategy}],
   entryComponents: [ AccountDialogComponent],
   bootstrap: [AppComponent]
 })

@@ -1,5 +1,8 @@
-package pl.opensource.advertisement;
+package pl.opensource.sport;
 
+import java.util.List;
+
+import pl.opensource.advertisement.Advertisement;
 
 public enum Sport {
 
@@ -17,7 +20,7 @@ public enum Sport {
 	Golf("IGF", "International Golf Federation", "Golf"),
 	Gymnastics("IFG", "International Gymnastics Federation", "Gimnastyka"),
 	Handball("IHF", "International Handball Federation", "Piłka ręczna"),
-	Hockey("IHF", "International Hockey Federation", "Hokej"),
+	Hockey("FIH", "International Hockey Federation", "Hokej"),
 	Judo("IJF", "International Judo Federation", "JUDO"),
 	ModernPentathlon("UIPM","Union Internationale de Pentathlon Moderne", "Pięciobój nowoczesny"),
 	RollerSports("WS", "World Skat", "Sport na rolkach"),
@@ -52,5 +55,25 @@ public enum Sport {
 
 	public String getAbbreviation() {
 		return abbreviation;
+	}
+	
+	public static void setPolishDescriptionSportsInAdvertisementList(List<Advertisement> allAdvertisements) {
+		for(Advertisement advertisement: allAdvertisements) {
+			for(Sport s: Sport.values()) {
+				if(s.getAbbreviation().equals(advertisement.getSport())) {
+					advertisement.setSport(s.getDesctiptionPL());
+				}
+			}
+		}
+	}
+	
+	public static void setAbbreviationSportsInAdvertisementList(List<Advertisement> advertisements) {
+		for(Advertisement advertisement: advertisements) {
+			for(Sport s: Sport.values()) {
+				if(s.getDesctiptionPL().equals(advertisement.getSport())) {
+					advertisement.setSport(s.getAbbreviation());
+				}
+			}
+		}
 	}
 }

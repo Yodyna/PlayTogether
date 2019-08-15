@@ -58,13 +58,6 @@ export class AdvertisementService {
     return this.http.get<boolean>(`${this.backendUrl}/advertisement/isParticipant/${id}`, requestOptions);
   }
 
-  getParticipantCount(id: number) {
-    const requestOptions: Object = {
-      responseType: 'text'
-    };
-    return this.http.get<number>(`${this.backendUrl}/advertisement/getParticipantCount/${id}`, requestOptions);
-  }
-
   getAllSport() {
     return this.http.get<string[]>(`${this.backendUrl}/advertisement/sport`);
   }

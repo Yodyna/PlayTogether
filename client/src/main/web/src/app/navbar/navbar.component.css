@@ -7,12 +7,8 @@ nav {
 #inputSearch {
   max-width: 40vmax;
 }
-.padding-right {
-  padding-right: 0.625rem;
-}
 #addEvent {
   display: flex;
-  flex-flow: row nowrap;
   align-items: baseline;
 }
 .dropdown {
@@ -21,14 +17,15 @@ nav {
 #create {
   margin-left: 0.3125rem;
 }
-#right-navbar {
+.right-navbar {
   display: flex;
-  flex-flow: row nowrap;
   align-items: stretch;
+  justify-content: flex-end;
 }
 #account, #message, #notification {
   margin-left: 0.3125rem;
+  margin: 0.25rem;
 }
-#test {
-  margin: 0rem;
+#plus {
+  margin-left: 0.25rem;
 }

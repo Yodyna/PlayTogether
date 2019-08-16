@@ -4,6 +4,7 @@ import { Observable, BehaviorSubject, Subject } from 'rxjs';
 import { Session } from '../models/session';
 import { UserDetail } from '../models/userDetail';
 import { environment } from '../../environments/environment';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,8 +14,10 @@ export class HttpService {
   private session = new BehaviorSubject<Session>(null);
   private backendUrl = environment.backendUrl;
 
-  constructor(private http: HttpClient) {
-    sessionStorage.getItem('username') === null ? this.session.next({authenticated: false}) : this.session.next({authenticated: true});
+  constructor(private http: HttpClient, private cookieService: CookieService) {
+    console.log('test  :  ' + cookieService.get('JSESSIONID') == null ? 'pusto' : 'niepusto');
+    cookieService.get('JSESSIONID') === '' ? this.session.next({authenticated: false}) : this.session.next({authenticated: true});
+    //sessionStorage.getItem('username') === null ? this.session.next({authenticated: false}) : this.session.next({authenticated: true});
   }
 
   authenticate(credentials): Observable<Session> {
@@ -38,7 +41,7 @@ export class HttpService {
   }
 
   setUsername(session: Session) {
-    sessionStorage.setItem('username', session.name);
+    // sessionStorage.setItem('username', session.name);
     this.session.next(session);
   }
 

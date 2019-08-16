@@ -11,7 +11,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
-//@EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {	
 
 	@Override
@@ -20,6 +19,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		.httpBasic()
 		.and()
 		.csrf().disable()
+//		 .csrf()
+//         	.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()).and()
 		.authorizeRequests()
 				.antMatchers("/**", "/index.html", "/resources/**", "/actuator/info", "/actuator/health", "/login", "/user/register", "/advertisement", "/advertisement/sport", "/advertisement/{id}", "/advertisement/{sport}/{city}", "/advertisement/getParticipantCount/{id}").permitAll()
 				.anyRequest().authenticated()
@@ -28,9 +29,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .loginPage("/login")
         .and()
 		.logout()
-		.logoutUrl("/logmeout");
-//		.invalidateHttpSession(true)
-//		.deleteCookies("JSESSIONID");
+		.logoutUrl("/logmeout")
+		.invalidateHttpSession(true)
+		.deleteCookies("JSESSIONID");
 	}
 	
 	@Bean

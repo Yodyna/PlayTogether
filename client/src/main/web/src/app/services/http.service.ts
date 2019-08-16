@@ -10,10 +10,12 @@ import { environment } from '../../environments/environment';
 })
 export class HttpService {
 
-  private session = new BehaviorSubject<Session>({authenticated: false});
+  private session = new BehaviorSubject<Session>(null);
   private backendUrl = environment.backendUrl;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    sessionStorage.getItem('username') === null ? this.session.next({authenticated: false}) : this.session.next({authenticated: true});
+  }
 
   authenticate(credentials): Observable<Session> {
     console.log(this.backendUrl);
@@ -27,6 +29,7 @@ export class HttpService {
   }
 
   logOut() {
+    this.session.next({authenticated: false});
     return this.http.get(`${this.backendUrl}/logmeout`);
   }
 
@@ -35,6 +38,7 @@ export class HttpService {
   }
 
   setUsername(session: Session) {
+    sessionStorage.setItem('username', session.name);
     this.session.next(session);
   }
 

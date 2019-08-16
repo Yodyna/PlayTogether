@@ -3,6 +3,7 @@ import { HttpService } from '../services/http.service';
 import { Session } from '../models/session';
 import { AdvertisementService } from '../services/advertisement.service';
 import { Advertisement } from '../models/advertisement';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-navbar',
@@ -13,13 +14,16 @@ export class NavbarComponent implements OnInit {
   session: Session;
   variableSearch = '';
 
-  constructor(private httpService: HttpService, private advertisementService: AdvertisementService) {
+  constructor(private httpService: HttpService, private advertisementService: AdvertisementService, private cookieService: CookieService) {
   }
 
   ngOnInit() {
     this.httpService.getUsername().subscribe((result: Session) => {
       this.session = result;
     });
+
+    this.cookieService.set( 'Test', 'Hello World' );
+    console.log(this.cookieService.get('JSESSIONID'));
   }
 
   logOut() {

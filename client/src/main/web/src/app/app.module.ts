@@ -61,6 +61,8 @@ import { AccountDialogComponent } from './account/dialog/account_dialog.componen
 import { UndefinedPipe } from './shared/undefined.pipe';
 import { Navbar2Component } from './navbar2/navbar2.component';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { CookieService } from 'ngx-cookie-service';
+
 
 @NgModule({
   declarations: [
@@ -143,7 +145,7 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
     MatTreeModule,
     FontAwesomeModule
   ],
-  providers: [AdvertisementService, HttpService, {provide: LocationStrategy, useClass: HashLocationStrategy}],
+  providers: [AdvertisementService, CookieService, HttpService, {provide: LocationStrategy, useClass: HashLocationStrategy}],
   entryComponents: [ AccountDialogComponent],
   bootstrap: [AppComponent]
 })

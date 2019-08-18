@@ -69,6 +69,7 @@ export class AdvertisementDetailsComponent implements OnInit {
     this.snackbar('Dołączyłeś do wydarzenia');
     this.advertisementService.addUserToParticipant(this.advertisement.id).subscribe(p => {
       this.isSubscribe();
+      this.updateAdvertisement();
     });
   }
 
@@ -76,6 +77,16 @@ export class AdvertisementDetailsComponent implements OnInit {
     this.snackbar('Opuściłeś wydarzenie');
     this.advertisementService.removeToAdvertisement(this.advertisement.id).subscribe(p => {
       this.isSubscribe();
+      this.updateAdvertisement();
+    });
+  }
+
+  updateAdvertisement() {
+    this.route.params.subscribe(params => {
+      this.params = params['id'];
+      this.advertisementService.getAdvertisementById(params['id']).subscribe( (result: Advertisement) => {
+        this.advertisement = result;
+      });
     });
   }
 }

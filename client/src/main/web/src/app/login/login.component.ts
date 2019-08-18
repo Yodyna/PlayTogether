@@ -63,6 +63,7 @@ export class LoginComponent {
   login() {
     this.httpService.authenticate(this.loginForm.value).subscribe(
       async (result: Session) => {
+        console.log(result);
         this.httpService.setUsername(result);
         this.alert.alertSuccess('Jesteś zalogowany');
         setTimeout(() => {

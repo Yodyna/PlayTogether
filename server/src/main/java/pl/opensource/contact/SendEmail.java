@@ -41,7 +41,7 @@ public class SendEmail {
 			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
 			message.setSubject("Witamy w grupie ZagrajmyRazem.pl!");
 			message.setText("Drogi użytkowniku," + "\n Cieszymy się, że dołączyłeś do naszej grupy."
-					+ "\n Aplikacja jest ciągle w fazie rozwoju, a jej głównym zadaniem jest umożliwienie wspólnej rozgrywki"
+					+ "\n Aplikacja jest ciągle w fazie rozwoju, a jej głównym zadaniem jest umożliwienie wspólnej rozgrywki."
 					+ "\n Zapraszamy do dołączenia do grupy na slack'u, aby zostawić feedback"
 					+ "\n\n Wiadomość została wysłana automatycznie. Prosimy na tą wiadomość nie odpowiadać!");
 

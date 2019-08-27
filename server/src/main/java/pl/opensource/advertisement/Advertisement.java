@@ -21,6 +21,8 @@ import javax.persistence.NamedAttributeNode;
 import javax.persistence.NamedEntityGraph;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -41,15 +43,18 @@ public class Advertisement {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	@NotNull
 	@Column(length = 4)
 	private String sport;
 	
+	@NotNull
 	@Column(length = 32)
 	private String city;
 	
 	@Column(length = 256)
 	private String description;
 	
+	@NotNull
 	@Column(length = 32)
 	private String street;
 	
@@ -62,16 +67,18 @@ public class Advertisement {
 	@JoinColumn(name = "advertisement_id", referencedColumnName="id")
 	private Set<TimeOfGame> timeOfGame = new HashSet<>();
     	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY, cascade= CascadeType.PERSIST)
 	@JoinColumn(name = "user_id")
 	private User user;
 	
+	@Min(2)
 	private int minNumberOfParticipants;
 		
+	@Min(2)
 	private int maxNumberOfParticipants;
 	
 	@JsonBackReference
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinTable(name = "participants",
     		joinColumns = {@JoinColumn(name="advertisement_id", referencedColumnName="id")},
     		inverseJoinColumns = {@JoinColumn(name="user_id", referencedColumnName="id")}

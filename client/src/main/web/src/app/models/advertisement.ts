@@ -1,4 +1,5 @@
 import { TimeOfGame } from './timeOfGame';
+import { User } from './user';
 
 export interface Advertisement {
     id?: number;
@@ -15,4 +16,5 @@ export interface Advertisement {
     minNumberOfParticipants?: number;
     maxNumberOfParticipants?: number;
     actualNumberOfParticipants?: number;
+    user?: User;
 }

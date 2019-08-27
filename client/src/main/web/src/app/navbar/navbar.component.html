@@ -30,7 +30,7 @@
 </ng-template>
 <ng-template #hasSession>
   <div>
-    <div id="notification" class="btn-group">
+    <!-- <div id="notification" class="btn-group">
       <button type="button" class="btn btn-info" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
         aria-haspopup="true" aria-expanded="false">
         <i class="fa fa-bell fa-1x" aria-hidden="true"></i>
@@ -38,15 +38,26 @@
       <div class="dropdown-menu dropdown-menu-lg-right">
         <a class="dropdown-item">Wkrótce</a>
       </div>
-    </div>
+    </div> -->
 
     <div id="message" class="btn-group">
       <button type="button" class="btn btn-info" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
         aria-haspopup="true" aria-expanded="false">
         <i class="fa fa-envelope fa-1x" aria-hidden="true"></i>
       </button>
-      <div class="dropdown-menu dropdown-menu-lg-right">
-        <a class="dropdown-item">Wkrótce</a>
+      <div class="dropdown dropdown-menu dropdown-menu-lg-right">
+        <h5><i class="fa fa-envelope fa-1x" aria-hidden="true"></i> Wiadomości</h5> 
+        
+        <div *ngIf="messages != ''; else emptyMessage">
+          <button *ngFor="let message of messages | slice:0:3" class="dropdown-item">
+            <dt>{{message.sender}}</dt>
+            <dd>{{message.message | truncate:[40, '...']}}</dd>
+          </button>
+          <button *ngIf="messages.length > 3" class="dropdown-item staticSize" style="text-align: center">Zobacz wszystkie wiadomości</button>
+        </div>
+        <ng-template #emptyMessage>
+          <a class="dropdown-item staticSize">Nie masz żadnej wiadomości</a>
+        </ng-template>
       </div>
     </div>
 
@@ -55,9 +66,10 @@
         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <i class="fa fa-user"></i>
       </button>
-      <div class="dropdown-menu dropdown-menu-lg-right">
-        <button routerLink="/account" class="dropdown-item" type="button">Moje konto</button>
-        <button (click)="logOut()" routerLink="/login" class="dropdown-item" type="button">Wyloguj mnie</button>
+      <div class="dropdown dropdown-menu dropdown-menu-lg-right">
+        <h5>{{session.name}}</h5> 
+        <button routerLink="/account" class="dropdown-item staticSize" type="button">Moje konto</button>
+        <button (click)="logOut()" routerLink="/login" class="dropdown-item staticSize" type="button">Wyloguj mnie</button>
       </div>
     </div>
 

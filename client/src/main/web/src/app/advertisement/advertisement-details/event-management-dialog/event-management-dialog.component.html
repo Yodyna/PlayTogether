@@ -1,0 +1,40 @@
+<div [ngSwitch]="switch_expression">
+  <div *ngSwitchCase="'participants'">
+    <div *ngIf = "participantss.length > 0; else lackParticipant">
+      <h5 style="text-align: center">Lista uczestników wydarzenia</h5>
+      <div class="oneline">
+        <div *ngFor = "let participantia of participantss; let i = index"> 
+          {{participantia.username}}
+        <!-- <button class="btn submit" style="background: #4a69bd; color: white" (click)="openDialog('participants')">Zobacz profil</button>-->
+        <button class="btn btn-success submit" (click)=openDialogMessage(participantia)>Wyślij wiadomość</button> 
+          <button class="btn submit" style="background: #2c3e50; color: white" (click)=removeEvent(participantia)>Usuń użytkownika</button>
+        </div>
+      </div>
+    </div>
+    <ng-template #lackParticipant>
+      <span>Jeszcze nikt nie dołączył do wydarzenia</span>
+    </ng-template>
+  </div>
+  <div *ngSwitchCase="'message'">
+    <div class="container" style="width: 400px;">
+      <h5 style="text-align: center">{{description}}</h5>
+
+      <div class="form-container">
+        <form class="example-form">
+          <mat-form-field class="example-full-width">
+            <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="4"
+            cdkAutosizeMaxRows="5" #message maxlength="256" placeholder="Opis wydarzenia" [(ngModel)]="information"
+              name="message">
+            </textarea>
+            <mat-hint align="end">{{message.value.length}} / 256</mat-hint>
+          </mat-form-field>
+        </form>
+      </div>
+       <button class="btn btn-primary submit"  mat-button [mat-dialog-close]="information" cdkFocusInitial> Wyślij wiadomość</button>
+    </div>
+  </div>
+  <div *ngSwitchCase="'removeEvent'">{{description}}
+    <button class="btn btn-primary submit"  mat-button [mat-dialog-close]="'removeEvent'" cdkFocusInitial>Odwołaj wydarzenie</button>
+  </div>
+  <div *ngSwitchDefault>Nastąpił błąd, proszę poinformować właściciela strony</div>
+</div>

@@ -24,7 +24,6 @@ export class Navbar2Component implements OnInit {
   }
 
   logOut() {
-    console.log('wylogowanie');
     this.httpService.logOut().subscribe(result => {
         console.log(result);
       },
@@ -32,7 +31,6 @@ export class Navbar2Component implements OnInit {
           console.log(error);
         });
     this.session.authenticated = false;
-    console.log('wylogowanie');
   }
 
   search() {

@@ -5,6 +5,8 @@ import { ActivatedRoute } from '@angular/router';
 import { HttpService } from '../../services/http.service';
 import { Session } from '../../models/session';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
+import {MatDialog} from '@angular/material/dialog';
+import { EventManagementDialogComponent } from './event-management-dialog/event-management-dialog.component';
 
 @Component({
   selector: 'app-advertisement-details',
@@ -17,26 +19,32 @@ export class AdvertisementDetailsComponent implements OnInit {
   session: Session;
   participant: boolean;
   params: any;
+  owner = false;
 
   constructor(
     private advertisementService: AdvertisementService,
     private route: ActivatedRoute,
     private httpService: HttpService,
-    private snackBar: MatSnackBar) {}
+    private snackBar: MatSnackBar,
+    public dialog: MatDialog) {}
 
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.params = params['id'];
       this.advertisementService.getAdvertisementById(params['id']).subscribe( (result: Advertisement) => {
         this.advertisement = result;
+        this.getSession();
       });
+    });
+  }
 
-      this.httpService.getUsername().subscribe( (result: Session) => {
-        this.session = result;
-        if (result.authenticated) {
-          this.isSubscribe();
-        }
-      });
+  getSession() {
+    this.httpService.getUsername().subscribe( (result: Session) => {
+      this.session = result;
+      result.name === this.advertisement.user.username ? this.owner = true : this.owner = false;
+      if (result.authenticated) {
+        this.isSubscribe();
+      }
     });
   }
 
@@ -87,6 +95,36 @@ export class AdvertisementDetailsComponent implements OnInit {
       this.advertisementService.getAdvertisementById(params['id']).subscribe( (result: Advertisement) => {
         this.advertisement = result;
       });
+    });
+  }
+
+  openDialogMessage(): void {
+    const dialogRef = this.dialog.open(EventManagementDialogComponent, {
+      data: {name: 'message', description: 'descriptonMultiMessage'}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+          this.advertisementService.sendMessage(+this.params, result).subscribe( () => {});
+    });
+  }
+
+  getParticipants() {
+    this.advertisementService.getParticipants(+this.params).subscribe( result => {
+      const dialogRef = this.dialog.open(EventManagementDialogComponent, {
+        data: {name: 'participants', value: result, description: 'participants', advertisementId: this.advertisement.id}
+      });
+      dialogRef.afterClosed().subscribe(result1 => {
+      });
+    });
+  }
+
+  removeEvent() {
+    const dialogRef = this.dialog.open(EventManagementDialogComponent, {
+      data: {name: 'removeEvent', description: 'descriptionRemoveAdvertisement'}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'removeEvent') {
+        this.advertisementService.removeAdvertisement(this.advertisement.id).subscribe( () => {});
+      }
     });
   }
 }

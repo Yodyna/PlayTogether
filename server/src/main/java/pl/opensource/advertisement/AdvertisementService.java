@@ -4,8 +4,12 @@ package pl.opensource.advertisement;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import pl.opensource.sport.Sport;
+import pl.opensource.user.Message;
+import pl.opensource.user.MessageRepository;
 import pl.opensource.user.User;
 import pl.opensource.user.UserRepository;
 
@@ -26,12 +30,14 @@ public class AdvertisementService {
 	
 	private AdvertisementRepository advertisementRepository;
 	private UserRepository userRepository;
+	private MessageRepository messageRepository;
 	
 	@Autowired
-	public AdvertisementService(AdvertisementRepository advertisementRepository, UserRepository userRepository) {
+	public AdvertisementService(AdvertisementRepository advertisementRepository, UserRepository userRepository, MessageRepository messageRepository) {
 		super();
 		this.advertisementRepository = advertisementRepository;
 		this.userRepository = userRepository;
+		this.messageRepository = messageRepository;
 	}
 	
 	@GetMapping
@@ -80,6 +86,14 @@ public class AdvertisementService {
 		return ResponseEntity.status(HttpStatus.ACCEPTED).body(advertisementList);
 	}
 	
+	@GetMapping("/userList")
+	public ResponseEntity<?> getAllAdvertisementByUser(Principal principal) {
+		User user = userRepository.findByUsername(principal.getName());
+		List<Advertisement> returnsList = user.getReturnsList();
+		Sport.setPolishDescriptionSportsInAdvertisementList(returnsList);
+		return ResponseEntity.status(HttpStatus.OK).body(returnsList);
+	}
+	
 	@GetMapping("/isParticipant/{id}")
 	public ResponseEntity<?> isParticipant(Principal principal, @PathVariable long id) {
 		Advertisement advertisement = advertisementRepository.findById(id).get();
@@ -87,13 +101,6 @@ public class AdvertisementService {
 		return count != 0 ? ResponseEntity.status(HttpStatus.ACCEPTED).body(true)
 				: ResponseEntity.status(HttpStatus.ACCEPTED).body(false);
 	}
-	
-//	@GetMapping("/getParticipantCount/{id}")
-//	public ResponseEntity<?> getParticipantCount(Principal principal, @PathVariable long id) {
-//		Advertisement advertisement = advertisementRepository.findById(id).get();
-//		int size = advertisement.getParticipants().size();
-//		return ResponseEntity.status(HttpStatus.OK).body(size);
-//	}
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<?> getAdvertisementByID(@PathVariable long id) {
@@ -140,6 +147,12 @@ public class AdvertisementService {
 		return ResponseEntity.status(HttpStatus.CREATED).build();
 	}
 	
+	@DeleteMapping("/removeAdvertisement/{id}")
+	public ResponseEntity<?> removeAdvertisement(Principal principal, @PathVariable long id) {
+		advertisementRepository.deleteById(id);
+		return ResponseEntity.status(HttpStatus.ACCEPTED).build();
+	}
+	
 	@DeleteMapping("/removeToAdvertisement/{id}")
 	public ResponseEntity<?> removeUserToParticipant(Principal principal, @PathVariable long id) {
 		Advertisement advertisement = advertisementRepository.findById(id).get();
@@ -157,5 +170,61 @@ public class AdvertisementService {
 			sports.add(sport.getDesctiptionPL());
 		}
 		return ResponseEntity.accepted().body(sports);
+	}
+	
+	@PostMapping("/{id}/message")
+	public ResponseEntity<Message> createMessage(Principal principal, @PathVariable long id, @RequestBody String message) {
+		Advertisement advertisement = advertisementRepository.findById(id).get();
+		List<User> participants = advertisement.getParticipants();
+		List<User> participantsWithoutSender = participants.stream().filter( user -> !user.getUsername().equals(principal.getName())).collect(Collectors.toList());
+		User sender = userRepository.findByUsername(principal.getName());
+		
+		participantsWithoutSender.forEach( user -> {
+			Set<Message> messages = user.getMessages();
+			Message newMessage = new Message();
+			newMessage.setMessage(message);
+			newMessage.setSender(sender.getUsername());
+			messages.add(newMessage);
+			
+			user.setMessages(messages);
+			userRepository.save(user);
+		});
+		
+		return ResponseEntity.status(HttpStatus.CREATED).build();
+	}
+	
+	@GetMapping("/{id}/participants")
+	public ResponseEntity<?> getParticipants(Principal principal, @PathVariable long id) {
+		Advertisement advertisement = advertisementRepository.findById(id).get();
+		List<User> participants = advertisement.getParticipants();
+		List<User> participantsWithoutOwner = participants.stream().filter( user -> !user.getUsername().equals(principal.getName())).collect(Collectors.toList());
+		return ResponseEntity.status(HttpStatus.OK).body(participantsWithoutOwner);
+	}
+	
+	@DeleteMapping("/{advertisementId}/user/{userId}")
+	public ResponseEntity<?> removeUserfromParticipant(Principal principal, @PathVariable long advertisementId, @PathVariable long userId) {
+		Advertisement advertisement = advertisementRepository.findById(advertisementId).get();
+		
+		User participant = advertisement.getParticipants().stream().filter( user -> user.getId().equals(userId)).findFirst().get();
+		advertisement.getParticipants().remove(participant);
+		advertisementRepository.save(advertisement);
+		return ResponseEntity.status(HttpStatus.OK).build();
+	}
+	
+	@PostMapping("/{advertisementId}/user/{userId}")
+	public ResponseEntity<?> sendMessageToUser(Principal principal, @PathVariable long advertisementId, @PathVariable long userId, @RequestBody String message) {
+		Advertisement advertisement = advertisementRepository.findById(advertisementId).get();
+		User participant = advertisement.getParticipants().stream().filter( user -> user.getId().equals(userId)).findFirst().get();
+		User sender = userRepository.findByUsername(principal.getName());
+		Set<Message> messages = participant.getMessages();
+		Message newMessage = new Message();
+		newMessage.setMessage(message);
+		newMessage.setSender(sender.getUsername());
+		messages.add(newMessage);
+		
+		participant.setMessages(messages);
+		userRepository.save(participant);
+		
+		return ResponseEntity.status(HttpStatus.CREATED).build();
 	}
 }

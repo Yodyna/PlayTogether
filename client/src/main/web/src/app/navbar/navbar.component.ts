@@ -3,6 +3,7 @@ import { HttpService } from '../services/http.service';
 import { Session } from '../models/session';
 import { AdvertisementService } from '../services/advertisement.service';
 import { Advertisement } from '../models/advertisement';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-navbar',
@@ -12,13 +13,17 @@ import { Advertisement } from '../models/advertisement';
 export class NavbarComponent implements OnInit {
   session: Session;
   variableSearch = '';
+  messages;
 
-  constructor(private httpService: HttpService, private advertisementService: AdvertisementService) {
+  constructor(private httpService: HttpService, private advertisementService: AdvertisementService, private userService: UserService) {
   }
 
   ngOnInit() {
     this.httpService.getUsername().subscribe((result: Session) => {
       this.session = result;
+      this.userService.getMessage().subscribe( (resultt) => {
+        this.messages = resultt;
+      });
     });
   }
 

@@ -29,3 +29,27 @@ nav {
 #plus {
   margin-left: 0.25rem;
 }
+.dropdown {
+ border: 1px solid #03a9f4;
+ padding: 0px;
+ padding-bottom: 0px;
+ border-top-left-radius: 10px;
+ border-top-right-radius: 10px;
+}
+div h5 {
+  color: #fff;
+  background: #03a9f4;
+  padding: 10px;
+  margin: 0px;
+  font-size: 16px;
+  font-weight: 700;
+  text-align: center;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+div button{
+  border: 0.1px solid #d7e7ee;
+}
+.staticSize {
+  height: 40px;
+}

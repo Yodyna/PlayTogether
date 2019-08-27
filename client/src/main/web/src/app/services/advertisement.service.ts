@@ -43,6 +43,10 @@ export class AdvertisementService {
     return this.http.get<Array<Advertisement>>(`${this.backendUrl}/advertisement/user`);
   }
 
+  getAdvertisementArrayPrincipalByUsername(): Observable<Array<Advertisement>> {
+    return this.http.get<Array<Advertisement>>(`${this.backendUrl}/advertisement/userList`);
+  }
+
   addUserToParticipant(id: number) {
     return this.http.post(`${this.backendUrl}/advertisement/joinToAdvertisement/${id}`, {}, {});
   }
@@ -60,5 +64,29 @@ export class AdvertisementService {
 
   getAllSport() {
     return this.http.get<string[]>(`${this.backendUrl}/advertisement/sport`);
+  }
+
+  checkMessage() {
+    return this.http.post(`${this.backendUrl}/advertisement/joinToAdvertisement/1`, {}, {});
+  }
+
+  sendMessage(id: number, description: string) {
+    return this.http.post(`${this.backendUrl}/advertisement/${id}/message`, description, {});
+  }
+
+  removeAdvertisement(id: number) {
+    return this.http.delete(`${this.backendUrl}/advertisement/removeAdvertisement/${id}`);
+  }
+
+  getParticipants(id: number) {
+    return this.http.get(`${this.backendUrl}/advertisement/${id}/participants`);
+  }
+
+  kickUserFromAdvertisement(advertisementId: number, userId: number) {
+    return this.http.delete(`${this.backendUrl}/advertisement/${advertisementId}/user/${userId}`);
+  }
+
+  sendMessageToUser(advertisementId: number, userId: number, description: string) {
+    return this.http.post(`${this.backendUrl}/advertisement/${advertisementId}/user/${userId}`, description);
   }
 }

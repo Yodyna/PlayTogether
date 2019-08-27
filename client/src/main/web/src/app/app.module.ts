@@ -62,6 +62,8 @@ import { UndefinedPipe } from './shared/undefined.pipe';
 import { Navbar2Component } from './navbar2/navbar2.component';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { CookieService } from 'ngx-cookie-service';
+// tslint:disable-next-line:max-line-length
+import { EventManagementDialogComponent } from './advertisement/advertisement-details/event-management-dialog/event-management-dialog.component';
 
 
 @NgModule({
@@ -79,7 +81,8 @@ import { CookieService } from 'ngx-cookie-service';
     AccountComponent,
     AccountDialogComponent,
     UndefinedPipe,
-    Navbar2Component
+    Navbar2Component,
+    EventManagementDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -146,7 +149,7 @@ import { CookieService } from 'ngx-cookie-service';
     FontAwesomeModule
   ],
   providers: [AdvertisementService, CookieService, HttpService, {provide: LocationStrategy, useClass: HashLocationStrategy}],
-  entryComponents: [ AccountDialogComponent],
+  entryComponents: [ AccountDialogComponent, EventManagementDialogComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

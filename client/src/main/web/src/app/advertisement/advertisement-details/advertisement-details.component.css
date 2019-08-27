@@ -79,3 +79,7 @@ input[disabled] {
 textarea[disabled] {
     color:rgb(0, 0, 0);
 }
+#eventManagement{
+    display: flex;
+    flex-flow: row nowrap;
+}

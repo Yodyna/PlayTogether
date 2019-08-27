@@ -19,4 +19,8 @@ export class UserService {
     };
     return this.http.post(`${this.backendUrl}/user/register`, user, httpOptions);
   }
+
+  getMessage() {
+    return this.http.get(`${this.backendUrl}/user/message`);
+  }
 }

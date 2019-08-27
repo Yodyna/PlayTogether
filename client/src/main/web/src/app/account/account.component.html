@@ -146,18 +146,42 @@
         </ul>
       </div>
       <div class="tab-pane fade" id="list-advertisement" role="tabpanel" aria-labelledby="list-advertisement-list">
-          <ul id="event" class="list-group">
-              <li class="list-group-item" *ngFor="let advertisement of advertisementArray">
-                <a [routerLink]="['/detail/', advertisement.id]"  style="text-decoration: none; color: inherit">
-                  <div class="row">
-                    <span id="sport" [title]="'Sport: ' + advertisement.sport"><fa-icon [icon]="iconSport"></fa-icon> {{ advertisement.sport | firstUppercase }} </span>
-                    <span id="city" [title]="'Miasto: ' + advertisement.city"><fa-icon [icon]="iconCity"></fa-icon> {{ advertisement.city | firstUppercase | truncate:[16, '...'] }} </span>
-                    <span id="street" [title]="'Ulica: ' + advertisement.street"><fa-icon [icon]="iconSteet"></fa-icon> {{ advertisement.street | firstUppercase | truncate:[16, '...'] }} </span>
-                    <span id="calendar" appTimeOfGameView [timeOfGameArray]="advertisement.timeOfGame"></span>
-                  </div>
-                </a>
-              </li>
-          </ul>
+        <div id="controlNavigationButtons">
+            <button type="button" (click)="isManagementOfAdvertisement()" class="btn" [ngClass]="{'btn-primary': isManagement}">Utworzone wydarzenia</button>
+            <button type="button" (click)="isAllAdvertisement()" class="btn" [ngClass]="{'btn-primary': !isManagement}">Wszystkie wydarzenia</button>
+          </div>
+        <div *ngIf="isManagement === true; then management ; else allAdvertisement"></div>
+
+        <ng-template #management>
+            <ul id="event" class="list-group">
+                <li class="list-group-item" *ngFor="let advertisement of advertisementArray">
+                  <a [routerLink]="['/detail/', advertisement.id]"  style="text-decoration: none; color: inherit">
+                    <div class="row">
+                      <span id="sport" [title]="'Sport: ' + advertisement.sport"><fa-icon [icon]="iconSport"></fa-icon> {{ advertisement.sport | firstUppercase }} </span>
+                      <span id="city" [title]="'Miasto: ' + advertisement.city"><fa-icon [icon]="iconCity"></fa-icon> {{ advertisement.city | firstUppercase | truncate:[16, '...'] }} </span>
+                      <span id="street" [title]="'Ulica: ' + advertisement.street"><fa-icon [icon]="iconSteet"></fa-icon> {{ advertisement.street | firstUppercase | truncate:[16, '...'] }} </span>
+                      <span id="calendar" appTimeOfGameView [timeOfGameArray]="advertisement.timeOfGame"></span>
+                    </div>
+                  </a>
+                </li>
+            </ul>
+        </ng-template>
+
+        <ng-template #allAdvertisement>
+            <ul id="event" class="list-group">
+                <li class="list-group-item" *ngFor="let advertisement of advertisementArray">
+                  <a [routerLink]="['/detail/', advertisement.id]"  style="text-decoration: none; color: inherit">
+                    <div class="row">
+                      <span id="sport" [title]="'Sport: ' + advertisement.sport"><fa-icon [icon]="iconSport"></fa-icon> {{ advertisement.sport | firstUppercase }} </span>
+                      <span id="city" [title]="'Miasto: ' + advertisement.city"><fa-icon [icon]="iconCity"></fa-icon> {{ advertisement.city | firstUppercase | truncate:[16, '...'] }} </span>
+                      <span id="street" [title]="'Ulica: ' + advertisement.street"><fa-icon [icon]="iconSteet"></fa-icon> {{ advertisement.street | firstUppercase | truncate:[16, '...'] }} </span>
+                      <span id="calendar" appTimeOfGameView [timeOfGameArray]="advertisement.timeOfGame"></span>
+                    </div>
+                  </a>
+                </li>
+            </ul>
+        </ng-template>
+         
       </div>
       <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">Wkrótce !</div>
       <div class="tab-pane fade" id="list-settings" role="tabpanel" aria-labelledby="list-settings-list">Wkrótce !</div>

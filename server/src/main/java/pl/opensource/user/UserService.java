@@ -2,6 +2,7 @@ package pl.opensource.user;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -90,5 +91,11 @@ public class UserService {
 		UserDetail userDetail = user.getUserDetail();
 		Gender.setPolishDescription(userDetail);
 		return ResponseEntity.status(HttpStatus.ACCEPTED).body(userDetail);
+	}
+	
+	@GetMapping("/message")
+	public ResponseEntity<Set<Message>> getUserMesssage(Principal principal) {
+		Set<Message> messages = userRepository.findByUsername(principal.getName()).getMessages();
+		return ResponseEntity.status(HttpStatus.OK).body(messages);
 	}
 }

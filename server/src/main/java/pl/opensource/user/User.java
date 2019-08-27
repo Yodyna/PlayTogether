@@ -11,9 +11,11 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedAttributeNode;
 import javax.persistence.NamedEntityGraph;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.Size;
 
@@ -55,6 +57,10 @@ public class User {
     @JsonProperty(access = Access.WRITE_ONLY)
 	@OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
 	private UserDetail userDetail;
+    
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "user_id", referencedColumnName = "id")
+    private Set<Message> messages = new HashSet<>();
 	
 	public User(String username, String password) {
 		this.username = username;

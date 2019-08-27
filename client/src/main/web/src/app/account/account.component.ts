@@ -30,6 +30,9 @@ export class AccountComponent implements OnInit {
   iconCalendar = faCalendarAlt;
   advertisementArray: Array<Advertisement>;
   userDetail: UserDetail = {email: '', birthday: null, phone: '', gender: ''};
+  isManagement = true;
+  active: number;
+  txt = 'list-profile';
 
   constructor(private httpService: HttpService, public dialog: MatDialog, private advertisementService: AdvertisementService) { }
 
@@ -48,7 +51,6 @@ export class AccountComponent implements OnInit {
       data: {name, value}
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log('po zamknieciu' + result);
       this.userDetail[result.name] = result.value;
       this.httpService.updateUserDetail(this.userDetail).subscribe( (p) => {
         this.getAdvertisementArrayByUsername();
@@ -62,9 +64,26 @@ export class AccountComponent implements OnInit {
     });
   }
 
+  getAllAdvertisementArrayByUsername() {
+    this.advertisementService.getAdvertisementArrayPrincipalByUsername().subscribe( (result: Array<Advertisement>) => {
+      this.advertisementArray = result;
+    });
+  }
+
+
   getUserDetail() {
     this.httpService.getUserDetail().subscribe( (result: UserDetail) => {
       this.userDetail = result;
     });
+  }
+
+  isManagementOfAdvertisement() {
+    this.getAdvertisementArrayByUsername();
+    this.isManagement = true;
+  }
+
+  isAllAdvertisement() {
+    this.getAllAdvertisementArrayByUsername();
+    this.isManagement = false;
   }
 }

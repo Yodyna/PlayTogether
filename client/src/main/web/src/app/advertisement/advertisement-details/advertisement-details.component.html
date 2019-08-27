@@ -30,6 +30,11 @@
               </div>
             </div>
           </div>
+          <div *ngIf="owner" id="eventManagement" class="mt-4">
+            <button class="btn btn-primary submit" (click)="getParticipants()">Zarządzaj listą uczestników</button>
+            <button class="btn btn-success submit" (click)="openDialogMessage()">Wyślij do wszystkich wiadomość</button>
+            <button class="btn btn-danger submit" (click)="removeEvent()">Odwołaj wydarzenie</button>
+          </div>
         </div>
         <div class="col">
           <div class="row h-100">

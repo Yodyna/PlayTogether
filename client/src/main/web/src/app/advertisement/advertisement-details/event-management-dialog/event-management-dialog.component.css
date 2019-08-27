@@ -1,0 +1,30 @@
+.card {
+    display: flex;
+    flex-flow: column nowrap;
+}
+.example-form {
+    min-width: 390px;
+    max-width: 400px;
+    width: 100%;
+} 
+.example-full-width {
+  width: 100%;
+}
+.oneline {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+}
+.oneline * {
+  margin: 10px;
+}
+
+div h5 {
+  color: #fff;
+  background: #03a9f4;
+  padding: 10px 20px;
+  font-size: 20px;
+  font-weight: 700;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}

@@ -29,6 +29,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import pl.opensource.timeofgame.TimeOfGame;
 import pl.opensource.user.User;
 
 @Data

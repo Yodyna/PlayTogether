@@ -1,25 +1,25 @@
-package pl.opensource.advertisement;
+package pl.opensource.message;
 
 import java.time.LocalDateTime;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
 @Entity
-@NoArgsConstructor
-public class TimeOfGame {
-
+public class Message {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_TimeOfGame")
 	private Long id;
-
-	private LocalDateTime date;
+	
+	private LocalDateTime dateOfcreate = LocalDateTime.now();
+		
+	private String message;
+	
+	private String sender; 
 }

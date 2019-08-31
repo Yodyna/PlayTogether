@@ -32,7 +32,7 @@ export class AdvertisementService {
   }
 
   addAdvertisement(advertisement: Advertisement) {
-    return this.http.post(`${this.backendUrl}/advertisement/user`, advertisement, {});
+    return this.http.post(`${this.backendUrl}/advertisement/create`, advertisement, {});
   }
 
   getAdvertisementArrayBySportAndCity(sport: string, city: string): Observable<Array<Advertisement>> {

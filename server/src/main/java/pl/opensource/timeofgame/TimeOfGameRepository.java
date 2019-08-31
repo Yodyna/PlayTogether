@@ -1,9 +1,9 @@
-package pl.opensource.user;
+package pl.opensource.timeofgame;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface MessageRepository extends JpaRepository<Message, Long> { 
+public interface TimeOfGameRepository extends JpaRepository<TimeOfGame,Long> {
 	
 }

@@ -27,6 +27,7 @@ import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import pl.opensource.advertisement.Advertisement;
+import pl.opensource.message.Message;
 import pl.opensource.user.detail.UserDetail;
 import pl.opensource.user.role.UserRole;
 
@@ -70,5 +71,4 @@ public class User {
 	@JsonBackReference
 	@ManyToMany(mappedBy = "participants", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Advertisement> returnsList;
-
 }

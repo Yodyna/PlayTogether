@@ -1,35 +1,55 @@
 package pl.opensource.user;
 
 import java.security.Principal;
+import java.util.Set;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+import pl.opensource.message.Message;
+import pl.opensource.user.detail.FindUserDetail;
+import pl.opensource.user.detail.UserDetail;
+import pl.opensource.user.usecase.CreateUser;
+import pl.opensource.user.usecase.FindMessage;
+
+@RestController
+@RequestMapping("/user")
 public class UserController {
 
-	@GetMapping("/register")
-	public String register(Model model) {
-		model.addAttribute("user", new User());
-		return "registerForm";
+	private final CreateUser createUser;
+	private final FindUserDetail findUserDetail;
+	private final FindMessage findMessage;
+
+	@Autowired
+	public UserController(
+			final CreateUser createUser,
+			final FindMessage findMessage,
+			final FindUserDetail findUserDetail) {
+		
+		this.createUser = createUser;
+		this.findMessage = findMessage;
+		this.findUserDetail = findUserDetail;
 	}
 
-	@GetMapping("/login")
-	public String loginForm() {
-		return "loginForm";
+	@PostMapping("/register")
+	public User createUser(@RequestBody final User user) {
+				
+		return createUser.create(user);
+	}
+
+	@GetMapping("/detail")
+	public UserDetail getUserDetail(Principal principal) {
+		
+		return findUserDetail.findByPrincipal(principal);
 	}
 	
-	@RequestMapping("/")
-	public String index() {
-		return "index";
-	}
-	
-	@RequestMapping("/welcome")
-	@ResponseBody
-	public Principal secured(Principal principal) {
-		return principal;
+	@GetMapping("/message")
+	public Set<Message> getUserMesssage(Principal principal) {
+		
+		return findMessage.findByPrincipal(principal);
 	}
 }

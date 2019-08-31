@@ -1,5 +1,6 @@
 package pl.opensource.sport;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import pl.opensource.advertisement.Advertisement;
@@ -75,5 +76,22 @@ public enum Sport {
 				}
 			}
 		}
+	}
+	
+	public static Advertisement setAbbreviationSportInAdvertisement(Advertisement advertisement) {
+		for(Sport s: Sport.values()) {
+			if(s.getDesctiptionPL().equals(advertisement.getSport())) {
+				advertisement.setSport(s.getAbbreviation());
+			}
+		}
+		return advertisement;
+	}
+	
+	public static List<String> getNameList() {
+		List<String> sports = new ArrayList<String>();
+		for(Sport sport: Sport.values()) {
+			sports.add(sport.getDesctiptionPL());
+		}
+		return sports;
 	}
 }

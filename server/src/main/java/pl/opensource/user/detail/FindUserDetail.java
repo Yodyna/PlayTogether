@@ -9,7 +9,7 @@ import pl.opensource.user.User;
 import pl.opensource.user.UserRepository;
 
 @Service	
-public class FindUserDetail {
+public final class FindUserDetail {
 	
 	private final UserRepository userRepository;
 	

@@ -6,7 +6,7 @@ import pl.opensource.user.User;
 import pl.opensource.user.UserRepository;
 
 @Service
-public class UpdateUser {
+public final class UpdateUser {
 
 	private final UserRepository userRepository;
 	

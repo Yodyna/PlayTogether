@@ -23,16 +23,16 @@ export class AdvertisementService {
     this.advertisementListObs.next(advertisementList);
   }
 
-  getAdvertisementArray() {
-    return this.http.get(`${this.backendUrl}/advertisement`);
+  getAdvertisementArray(): Observable<Array<Advertisement>> {
+    return this.http.get<Array<Advertisement>>(`${this.backendUrl}/advertisement`);
   }
 
-  getAdvertisementById(id: number) {
-    return this.http.get(`${this.backendUrl}/advertisement/${id}`);
+  getAdvertisementById(advertisementId: number): Observable<Advertisement> {
+    return this.http.get<Advertisement>(`${this.backendUrl}/advertisement/${advertisementId}`);
   }
 
-  addAdvertisement(advertisement: Advertisement) {
-    return this.http.post(`${this.backendUrl}/advertisement/create`, advertisement, {});
+  addAdvertisement(advertisement: Advertisement):Observable<Advertisement> {
+    return this.http.post<Advertisement>(`${this.backendUrl}/advertisement/create`, advertisement, {});
   }
 
   getAdvertisementArrayBySportAndCity(sport: string, city: string): Observable<Array<Advertisement>> {
@@ -47,39 +47,35 @@ export class AdvertisementService {
     return this.http.get<Array<Advertisement>>(`${this.backendUrl}/advertisement/userList`);
   }
 
-  addUserToParticipant(id: number) {
-    return this.http.post(`${this.backendUrl}/advertisement/joinToAdvertisement/${id}`, {}, {});
+  addUserToParticipant(advertisementId: number) {
+    return this.http.post(`${this.backendUrl}/advertisement/${advertisementId}/joinToAdvertisement`, {}, {});
   }
 
-  removeToAdvertisement(id: number) {
-    return this.http.delete(`${this.backendUrl}/advertisement/removeToAdvertisement/${id}`);
+  removeToAdvertisement(advertisementId: number) {
+    return this.http.delete(`${this.backendUrl}/advertisement/${advertisementId}/removeToAdvertisement`);
   }
 
-  isParticipant(id: number) {
+  isParticipant(advertisementId: number) {
     const requestOptions: Object = {
       responseType: 'text'
     };
-    return this.http.get<boolean>(`${this.backendUrl}/advertisement/isParticipant/${id}`, requestOptions);
+    return this.http.get<boolean>(`${this.backendUrl}/advertisement/${advertisementId}/isParticipant`, requestOptions);
   }
 
-  getAllSport() {
+  getAllSport(): Observable<string[]> {
     return this.http.get<string[]>(`${this.backendUrl}/advertisement/sport`);
   }
 
-  checkMessage() {
-    return this.http.post(`${this.backendUrl}/advertisement/joinToAdvertisement/1`, {}, {});
+  sendMessage(advertisementId: number, description: string) {
+    return this.http.post(`${this.backendUrl}/advertisement/${advertisementId}/message`, description, {});
   }
 
-  sendMessage(id: number, description: string) {
-    return this.http.post(`${this.backendUrl}/advertisement/${id}/message`, description, {});
+  removeAdvertisement(advertisementId: number) {
+    return this.http.delete(`${this.backendUrl}/advertisement/${advertisementId}/removeAdvertisement`);
   }
 
-  removeAdvertisement(id: number) {
-    return this.http.delete(`${this.backendUrl}/advertisement/removeAdvertisement/${id}`);
-  }
-
-  getParticipants(id: number) {
-    return this.http.get(`${this.backendUrl}/advertisement/${id}/participants`);
+  getParticipants(advertisementId: number) {
+    return this.http.get(`${this.backendUrl}/advertisement/${advertisementId}/participants`);
   }
 
   kickUserFromAdvertisement(advertisementId: number, userId: number) {

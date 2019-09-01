@@ -6,7 +6,7 @@ import pl.opensource.advertisement.Advertisement;
 import pl.opensource.advertisement.AdvertisementRepository;
 
 @Service
-public class UpdateAdvertisement {
+public final class UpdateAdvertisement {
 	
 	private final AdvertisementRepository advertisementRepository;
 	

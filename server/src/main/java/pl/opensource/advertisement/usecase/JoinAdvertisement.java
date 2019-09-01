@@ -11,7 +11,7 @@ import pl.opensource.user.User;
 import pl.opensource.user.usecase.FindUser;
 
 @Service
-public class JoinAdvertisement {
+public final class JoinAdvertisement {
 	
 	private final FindAdvertisement findAdvertisement;
 	private final FindUser findUser;

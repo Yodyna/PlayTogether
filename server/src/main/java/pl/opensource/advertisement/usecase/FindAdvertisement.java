@@ -13,7 +13,7 @@ import pl.opensource.user.User;
 import pl.opensource.user.usecase.FindUser;
 
 @Service
-public class FindAdvertisement {
+public final class FindAdvertisement {
 	
 	private final AdvertisementRepository advertisementRepository;
 	private final FindUser findUser;

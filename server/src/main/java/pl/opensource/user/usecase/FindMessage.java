@@ -11,7 +11,7 @@ import pl.opensource.user.UserRepository;
 import pl.opensource.user.exception.UserIsNotLoggedInException;
 
 @Service
-public class FindMessage {
+public final class FindMessage {
 	
 	private final UserRepository userRepository;
 	
@@ -22,7 +22,7 @@ public class FindMessage {
 	
 	public Set<Message> findByPrincipal(Principal principal) {
 		if(principal == null) {
-			throw new UserIsNotLoggedInException("użytkownik nie jest zalogowany");
+			throw new UserIsNotLoggedInException("Użytkownik nie jest zalogowany");
 		}
 		return userRepository.findByUsername(principal.getName()).getMessages();
 	}

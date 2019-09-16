@@ -2,6 +2,8 @@ package pl.opensource.advertisement.usecase;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,6 +11,7 @@ import org.springframework.stereotype.Service;
 import pl.opensource.advertisement.Advertisement;
 import pl.opensource.advertisement.AdvertisementRepository;
 import pl.opensource.sport.Sport;
+import pl.opensource.timeofgame.TimeOfGame;
 import pl.opensource.user.User;
 import pl.opensource.user.usecase.FindUser;
 
@@ -27,6 +30,9 @@ public final class CreateAdvertisement {
 	}
 	
 	public Advertisement create(final Advertisement advertisement, final Principal principal) {
+		Set<TimeOfGame> newTimeOfGame = advertisement.getTimeOfGame().stream().distinct().collect(Collectors.toSet());
+		advertisement.setTimeOfGame(newTimeOfGame);
+		
 		int min = advertisement.getMinNumberOfParticipants();
 		int max = advertisement.getMaxNumberOfParticipants();
 		if(min > max) {

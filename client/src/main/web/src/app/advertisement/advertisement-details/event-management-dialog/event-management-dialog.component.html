@@ -1,9 +1,9 @@
 <div [ngSwitch]="switch_expression">
   <div *ngSwitchCase="'participants'">
-    <div *ngIf = "participantss.length > 0; else lackParticipant">
+    <div *ngIf = "participants.length > 0; else lackParticipant">
       <h5 style="text-align: center">Lista uczestników wydarzenia</h5>
       <div class="oneline">
-        <div *ngFor = "let participantia of participantss; let i = index"> 
+        <div *ngFor = "let participantia of participants; let i = index"> 
           {{participantia.username}}
         <!-- <button class="btn submit" style="background: #4a69bd; color: white" (click)="openDialog('participants')">Zobacz profil</button>-->
         <button class="btn btn-success submit" (click)=openDialogMessage(participantia)>Wyślij wiadomość</button> 
@@ -30,7 +30,7 @@
           </mat-form-field>
         </form>
       </div>
-       <button class="btn btn-primary submit"  mat-button [mat-dialog-close]="information" cdkFocusInitial> Wyślij wiadomość</button>
+       <button class="btn btn-primary submit" mat-button [mat-dialog-close]="information" cdkFocusInitial> Wyślij wiadomość</button>
     </div>
   </div>
   <div *ngSwitchCase="'removeEvent'">{{description}}

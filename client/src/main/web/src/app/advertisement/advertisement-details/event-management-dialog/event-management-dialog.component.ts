@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { AdvertisementService } from 'src/app/services/advertisement.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-event-management-dialog',
@@ -15,21 +16,29 @@ export class EventManagementDialogComponent {
   descriptonMultiMessage = 'Wyślij wiadomość do wszystkich z wydarzenia';
   descriptionRemoveAdvertisement = 'Czy chcesz odwołać wydarzenie?';
   descriptionRemoveUser = 'Czy chcesz usunąć użytkownika?';
-  participantss = null;
+  participants = null;
   isParticiant = false;
   advertisementId;
 
   constructor(
     public dialogRef: MatDialogRef<EventManagementDialogComponent>,
     public dialog: MatDialog,
+    private snackBar: MatSnackBar,
     public advertisementService: AdvertisementService,
     @Inject(MAT_DIALOG_DATA) public data) {
       this.switch_expression = data.name;
       this.description = this[data.description];
       if (this.switch_expression === 'participants') {
-        this.participantss = data.value;
+        this.participants = data.value;
         this.advertisementId = data.advertisementId;
       }
+    }
+
+    snackbar(message: string) {
+      this.snackBar.open(message, '', {
+        duration: 2000,
+        panelClass: ['my-snack-bar']
+      });
     }
 
     onNoClick(): void {
@@ -41,7 +50,10 @@ export class EventManagementDialogComponent {
         data: {name: 'message', description: 'descriptionSingleMessage'}
       });
       dialogRef.afterClosed().subscribe(result => {
-        this.advertisementService.sendMessageToUser(this.advertisementId, participant.id, result).subscribe( () => {});
+        if (result) {
+          this.snackbar('Wysłano wiadomość do użytkownika');
+          this.advertisementService.sendMessageToUser(this.advertisementId, participant.id, result).subscribe( () => {});
+        }
       });
     }
 
@@ -51,6 +63,7 @@ export class EventManagementDialogComponent {
       });
       dialogRef.afterClosed().subscribe(result => {
         if (result === 'removeEvent') {
+          this.snackbar('Usunięto użytkownika');
           this.advertisementService.kickUserFromAdvertisement(this.advertisementId, participant.id).subscribe( () => {});
         }
       });

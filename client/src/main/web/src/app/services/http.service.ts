@@ -15,9 +15,14 @@ export class HttpService {
   private backendUrl = environment.backendUrl;
 
   constructor(private http: HttpClient, private cookieService: CookieService) {
-    console.log('test  :  ' + cookieService.get('JSESSIONID') == null ? 'pusto' : 'niepusto');
-    cookieService.get('JSESSIONID') === '' ? this.session.next({authenticated: false}) : this.session.next({authenticated: true});
-    //sessionStorage.getItem('username') === null ? this.session.next({authenticated: false}) : this.session.next({authenticated: true});
+    cookieService.get('JSESSIONID') === '' ? this.session.next({authenticated: false}) : this.checkUserSession();
+  }
+
+  checkUserSession() {
+    this.http.get<Session>( `${this.backendUrl}/welcome`).subscribe(
+      (result: Session) => this.session.next(result),
+      error => this.session.next({authenticated: false})
+    );
   }
 
   authenticate(credentials): Observable<Session> {
@@ -41,7 +46,6 @@ export class HttpService {
   }
 
   setUsername(session: Session) {
-    // sessionStorage.setItem('username', session.name);
     this.session.next(session);
   }
 

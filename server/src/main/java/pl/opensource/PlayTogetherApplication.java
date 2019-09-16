@@ -16,15 +16,14 @@ public class PlayTogetherApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(PlayTogetherApplication.class, args);
 	}
-	
+
 	@Bean
 	public Validator validator() {
 		return new LocalValidatorFactoryBean();
 	}
-	
+
 	@Bean
-    public static PropertySourcesPlaceholderConfigurer 
-                    getPropertySourcesPlaceholderConfigurer() {
-        return new PropertySourcesPlaceholderConfigurer();
-    }
+	public static PropertySourcesPlaceholderConfigurer getPropertySourcesPlaceholderConfigurer() {
+		return new PropertySourcesPlaceholderConfigurer();
+	}
 }

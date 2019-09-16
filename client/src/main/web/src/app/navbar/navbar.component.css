@@ -1,8 +1,8 @@
 nav {
   display: flex;
-  justify-content: space-between;
-  align-items: stretch;
-  max-height: 70px;
+  align-items: center;
+  padding: 15px;
+  margin-bottom: 25px;
 }
 #inputSearch {
   max-width: 40vmax;
@@ -19,26 +19,24 @@ nav {
 }
 .right-navbar {
   display: flex;
-  align-items: stretch;
+  align-items: baseline;
   justify-content: flex-end;
 }
 #account, #message, #notification {
   margin-left: 0.3125rem;
-  margin: 0.25rem;
 }
 #plus {
   margin-left: 0.25rem;
 }
+
 .dropdown {
- border: 1px solid #03a9f4;
  padding: 0px;
  padding-bottom: 0px;
  border-top-left-radius: 10px;
  border-top-right-radius: 10px;
 }
+
 div h5 {
-  color: #fff;
-  background: #03a9f4;
   padding: 10px;
   margin: 0px;
   font-size: 16px;
@@ -46,10 +44,40 @@ div h5 {
   text-align: center;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
+  color: #fff;
+}
+
+.account-button-focus:focus {
+  background: #27ae60;
+}
+
+.message-button-focus:focus {
+  background-color: #3498db;
+}
+
+#message-droptown {
+  border: 1px solid #3498db;
+}
+
+#message-droptown h5 {
+  background: #3498db;
+}
+
+#account-droptown {
+  border: 1px solid #27ae60;
+}
+
+#account-droptown h5 {
+  background: #27ae60;
 }
 div button{
   border: 0.1px solid #d7e7ee;
 }
 .staticSize {
   height: 40px;
+}
+@media (max-width: 570.00px) {
+  .right-navbar {
+    margin-top: 10px;
+  }
 }

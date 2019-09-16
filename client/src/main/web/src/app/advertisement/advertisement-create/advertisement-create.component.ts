@@ -38,8 +38,7 @@ export class AdvertisementCreateComponent {
     private snackBar: MatSnackBar,
     private advertisementService: AdvertisementService) {
 
-    this.timeOfGame = {date: new Date()};
-    this.timeOfGameList.push(this.timeOfGame);
+    this.addEvent();
 
     this.advertisementService.getAllSport().subscribe( (result: string[]) => {
       this.options = result;
@@ -60,7 +59,10 @@ export class AdvertisementCreateComponent {
   }
 
   addEvent() {
-    this.timeOfGame = {date: new Date()};
+    const time = new Date();
+    time.setSeconds(0, 0);
+
+    this.timeOfGame = {date: time};
     this.timeOfGameList.push(this.timeOfGame);
   }
 

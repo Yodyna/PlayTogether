@@ -21,15 +21,16 @@ export class NavbarComponent implements OnInit {
   ngOnInit() {
     this.httpService.getUsername().subscribe((result: Session) => {
       this.session = result;
-      this.userService.getMessage().subscribe( (resultt) => {
-        this.messages = resultt;
-      });
+      if (this.session) {
+        this.userService.getMessage().subscribe( (resultt) => {
+          this.messages = resultt;
+        });
+      }
     });
   }
 
   logOut() {
-    this.httpService.logOut().subscribe(result => {
-      },
+    this.httpService.logOut().subscribe(result => {},
         error => {
           console.log(error);
         });

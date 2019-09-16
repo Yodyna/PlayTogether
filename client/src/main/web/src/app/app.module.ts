@@ -64,6 +64,7 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { CookieService } from 'ngx-cookie-service';
 // tslint:disable-next-line:max-line-length
 import { EventManagementDialogComponent } from './advertisement/advertisement-details/event-management-dialog/event-management-dialog.component';
+import { ShowTimeDirective } from './shared/show-time.directive';
 
 
 @NgModule({
@@ -82,7 +83,8 @@ import { EventManagementDialogComponent } from './advertisement/advertisement-de
     AccountDialogComponent,
     UndefinedPipe,
     Navbar2Component,
-    EventManagementDialogComponent
+    EventManagementDialogComponent,
+    ShowTimeDirective
   ],
   imports: [
     BrowserModule,

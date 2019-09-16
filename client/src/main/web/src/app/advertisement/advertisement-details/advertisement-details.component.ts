@@ -7,6 +7,7 @@ import { Session } from '../../models/session';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import {MatDialog} from '@angular/material/dialog';
 import { EventManagementDialogComponent } from './event-management-dialog/event-management-dialog.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-advertisement-details',
@@ -26,15 +27,16 @@ export class AdvertisementDetailsComponent implements OnInit {
     private route: ActivatedRoute,
     private httpService: HttpService,
     private snackBar: MatSnackBar,
-    public dialog: MatDialog) {}
+    public dialog: MatDialog,
+    public router: Router) {}
 
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.params = params['id'];
-      this.advertisementService.getAdvertisementById(params['id']).subscribe( (result: Advertisement) => {
-        this.advertisement = result;
-        this.getSession();
-      });
+    });
+    this.advertisementService.getAdvertisementById(this.params).subscribe( (result: Advertisement) => {
+      this.advertisement = result;
+      this.getSession();
     });
   }
 
@@ -69,24 +71,24 @@ export class AdvertisementDetailsComponent implements OnInit {
     this.snackBar.open(message, 'close', {});
   }
 
-  public snackbarError(message) {
-    this.snackBar.open(message, 'close', {});
-  }
-
   submit() {
-    this.snackbar('Dołączyłeś do wydarzenia');
-    this.advertisementService.addUserToParticipant(this.advertisement.id).subscribe(p => {
-      this.isSubscribe();
-      this.updateAdvertisement();
-    });
+    this.advertisementService.addUserToParticipant(this.advertisement.id).subscribe(
+      result => {
+        this.snackbar('Dołączyłeś do wydarzenia');
+        this.isSubscribe();
+        this.updateAdvertisement();
+      }, error => this.snackbar('Niestety nie mogłeś dołczyć do wydarzenia')
+    );
   }
 
   delete() {
-    this.snackbar('Opuściłeś wydarzenie');
-    this.advertisementService.removeToAdvertisement(this.advertisement.id).subscribe(p => {
-      this.isSubscribe();
-      this.updateAdvertisement();
-    });
+    this.advertisementService.removeToAdvertisement(this.advertisement.id).subscribe(
+      result => {
+        this.snackbar('Opuściłeś wydarzenie');
+        this.isSubscribe();
+        this.updateAdvertisement();
+      }, error => this.snackbar('Niestety nie udało się opuścić wydarzenia')
+    );
   }
 
   updateAdvertisement() {
@@ -103,7 +105,12 @@ export class AdvertisementDetailsComponent implements OnInit {
       data: {name: 'message', description: 'descriptonMultiMessage'}
     });
     dialogRef.afterClosed().subscribe(result => {
-          this.advertisementService.sendMessage(+this.params, result).subscribe( () => {});
+      if (result) {
+        this.advertisementService.sendMessage(+this.params, result).subscribe( () => {
+          this.snackbar('Wysłano wiadomość do wszystkich');
+        }, error =>  this.snackbar('Nie udało się wysłać wiadomości')
+        );
+      }
     });
   }
 
@@ -123,7 +130,10 @@ export class AdvertisementDetailsComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'removeEvent') {
-        this.advertisementService.removeAdvertisement(this.advertisement.id).subscribe( () => {});
+        this.advertisementService.removeAdvertisement(this.advertisement.id).subscribe( () => {
+          this.snackbar('Usunięto wydarzenie, zostaniesz przekierowany/a do strony głównej');
+          this.router.navigate(['']);
+        });
       }
     });
   }

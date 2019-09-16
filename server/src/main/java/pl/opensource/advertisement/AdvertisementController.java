@@ -105,8 +105,8 @@ public class AdvertisementController {
 	}
 	
 	@PostMapping("/{advertisementId}/joinToAdvertisement")
-	public ResponseEntity<?> addUserToParticipant(Principal principal, @PathVariable long id) {
-		joinAdvertisement.addUserToAdvertisement(id, principal);
+	public ResponseEntity<?> addUserToParticipant(Principal principal, @PathVariable long advertisementId) {
+		joinAdvertisement.addUserToAdvertisement(advertisementId, principal);
 		return ResponseEntity.accepted().build();
 	}
 	
@@ -117,8 +117,8 @@ public class AdvertisementController {
 	}
 	
 	@DeleteMapping("/{advertisementId}/removeToAdvertisement")
-	public ResponseEntity<?> removeUserToParticipant(Principal principal, @PathVariable long id) {
-		Advertisement advertisement = findAdvertisement.findById(id);
+	public ResponseEntity<?> removeUserToParticipant(Principal principal, @PathVariable long advertisementId) {
+		Advertisement advertisement = findAdvertisement.findById(advertisementId);
 		User user = findUser.findByPrincipal(principal);
 		List<User> participants = advertisement.getParticipants();
 		participants.remove(user);		

@@ -10,13 +10,26 @@
 ul, li {
     border: 10px static red;
 }
-#right-navbar {
+/* #navbar-right {
+    border: 1px red solid;
     display: flex;
-    flex-flow: row nowrap;
-    align-items: stretch;
-}
-nav {
+    justify-content: flex-end;
+} */
+#navbarSupportedContent {
+    border: 1px red solid;
     display: flex;
     justify-content: space-between;
-    align-items: stretch;
 }
+
+/* #right-navbar {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: baseline;
+    border: 1px solid red;
+}  */
+/* nav { 
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    /* align-items: stretch;
+ } */

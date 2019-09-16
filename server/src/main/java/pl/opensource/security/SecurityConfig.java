@@ -16,9 +16,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
+//		.cors()
+//		.configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues())
+//		.and()
 		.httpBasic()
 		.and()
-		.csrf().disable()
+    	.csrf().disable()
+//		 .csrf()
+//         .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()).and()
 		.authorizeRequests()
 				.antMatchers("/**", "/index.html", "/resources/**", "/actuator/info", "/actuator/health", "/login", "/user/register", "/advertisement", "/advertisement/sport", "/advertisement/{id}", "/advertisement/{sport}/{city}", "/advertisement/getParticipantCount/{id}").permitAll()
 				.anyRequest().authenticated()
@@ -31,6 +36,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		.invalidateHttpSession(true)
 		.deleteCookies("JSESSIONID");
 	}
+	
+//	@Bean
+//    public CorsFilter corsFilter() {
+//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+//        CorsConfiguration config = new CorsConfiguration();
+//        config.setAllowCredentials(true);
+//        config.addAllowedOrigin("*");
+//        config.addAllowedHeader("*");
+//        config.addAllowedMethod("OPTIONS");
+//        config.addAllowedMethod("GET");
+//        config.addAllowedMethod("POST");
+//        config.addAllowedMethod("PUT");
+//        config.addAllowedMethod("DELETE");
+//        source.registerCorsConfiguration("/**", config);
+//        return new CorsFilter(source);
+//    }
 	
 	@Bean
 	public UserDetailsService myUserDetailsService() {

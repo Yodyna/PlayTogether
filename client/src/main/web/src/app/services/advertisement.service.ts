@@ -31,7 +31,7 @@ export class AdvertisementService {
     return this.http.get<Advertisement>(`${this.backendUrl}/advertisement/${advertisementId}`);
   }
 
-  addAdvertisement(advertisement: Advertisement):Observable<Advertisement> {
+  addAdvertisement(advertisement: Advertisement): Observable<Advertisement> {
     return this.http.post<Advertisement>(`${this.backendUrl}/advertisement/create`, advertisement, {});
   }
 

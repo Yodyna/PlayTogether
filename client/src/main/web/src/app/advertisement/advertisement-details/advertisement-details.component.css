@@ -15,7 +15,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-
 }
 .top > * {
     margin: 10px;
@@ -47,7 +46,7 @@
 #event > * {
     margin-right: 1rem;
 }
-@media (max-width: 575.98px) {
+@media (max-width: 1000.98px) {
     #content {
         padding: 1vh;
         margin: 1.25rem;
@@ -57,6 +56,17 @@
         margin-right: 2.25rem;
     }
 }
+@media (max-width: 400.98px) {
+    #content {
+        padding: 1vh;
+        margin: 0.25rem;
+        margin-top: 0.25rem;
+        margin-bottom: 0.25rem;
+        margin-left: 0.25rem;
+        margin-right: 0.25rem;
+    }
+}
+
 .numberCircle {
     border-radius: 50%;
     width: 40px;
@@ -82,4 +92,16 @@ textarea[disabled] {
 #eventManagement{
     display: flex;
     flex-flow: row nowrap;
+}
+p {
+    margin: 0px;
+    padding: 2px;
+}
+.showTime{
+    border: 1.5px solid #3498db;
+    border-radius: 10px;
+    background-color: white;
+    top:0;
+    left:0;
+    z-index: 1;
 }

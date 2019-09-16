@@ -1,6 +1,6 @@
-<nav class="shadow-lg p-3 mb-5 bg-white rounde navbar navbar-expand-lg navbar-light bg-light justify-content-between">
+<nav class="shadow-lg  bg-white rounde navbar navbar-expand-sm navbar-light bg-light justify-content-between">
   <a class="navbar-brand" routerLink="/">ZagrajmyRazem</a>
-  <div id="inputSearch" class="input-group mb-3">
+  <div id="inputSearch" class="input-group">
     <input type="text" class="form-control" placeholder="Sport Miasto" aria-label="Username"
       aria-describedby="addon-wrapping" name="variableSeach" [(ngModel)]="variableSearch">
     <a>
@@ -10,12 +10,12 @@
     </a>
   </div>
 
-  <div class="right-navbar">
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
 
+  <div class="right-navbar">
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <div id="session" *ngIf="session.authenticated == false; then noSession; else hasSession"> </div>
     </div>
@@ -25,7 +25,8 @@
 <ng-template #noSession>
   <div>
     <a routerLink="/login">
-      <button type="button" class="btn btn-primary">Zaloguj/Zarejestruj</button></a>
+      <button type="button" class="btn btn-primary">Zaloguj/Zarejestruj</button>
+    </a>
   </div>
 </ng-template>
 <ng-template #hasSession>
@@ -41,40 +42,42 @@
     </div> -->
 
     <div id="message" class="btn-group">
-      <button type="button" class="btn btn-info" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
+      <button type="button" class="btn btn-info" style="background-color: #3498db" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
         aria-haspopup="true" aria-expanded="false">
         <i class="fa fa-envelope fa-1x" aria-hidden="true"></i>
       </button>
-      <div class="dropdown dropdown-menu dropdown-menu-lg-right">
-        <h5><i class="fa fa-envelope fa-1x" aria-hidden="true"></i> Wiadomości</h5> 
-        
+      <div id="message-droptown" class="dropdown dropdown-menu dropdown-menu-lg-right">
+        <h5><i class="fa fa-envelope fa-1x" aria-hidden="true"></i> Wiadomości</h5>
+
         <div *ngIf="messages != ''; else emptyMessage">
-          <button *ngFor="let message of messages | slice:0:3" class="dropdown-item">
+          <button *ngFor="let message of messages | slice:0:3" class="dropdown-item message-button-focus">
             <dt>{{message.sender}}</dt>
             <dd>{{message.message | truncate:[40, '...']}}</dd>
           </button>
-          <button *ngIf="messages.length > 3" class="dropdown-item staticSize" style="text-align: center">Zobacz wszystkie wiadomości</button>
+          <button *ngIf="messages.length > 3" class="dropdown-item staticSize message-button-focus" style="text-align: center">Zobacz
+            wszystkie wiadomości</button>
         </div>
         <ng-template #emptyMessage>
-          <a class="dropdown-item staticSize">Nie masz żadnej wiadomości</a>
+          <button class="dropdown-item staticSize message-button-focus">Nie masz żadnej wiadomości</button>
         </ng-template>
       </div>
     </div>
 
     <div id="account" class="btn-group">
-      <button type="button" class="btn btn-success" id="navbarDropdownMenuLink" data-display="static"
+      <button type="button" class="btn btn-success" style="background-color: #27ae60" id="navbarDropdownMenuLink" data-display="static"
         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <i class="fa fa-user"></i>
       </button>
-      <div class="dropdown dropdown-menu dropdown-menu-lg-right">
-        <h5>{{session.name}}</h5> 
-        <button routerLink="/account" class="dropdown-item staticSize" type="button">Moje konto</button>
-        <button (click)="logOut()" routerLink="/login" class="dropdown-item staticSize" type="button">Wyloguj mnie</button>
+      <div id="account-droptown" class="dropdown dropdown-menu dropdown-menu-lg-right">
+        <h5>{{session.name}}</h5>
+        <button routerLink="/account" class="dropdown-item staticSize account-button-focus" type="button">Moje konto</button>
+        <button (click)="logOut()" routerLink="/login" class="dropdown-item staticSize account-button-focus" type="button">Wyloguj
+          mnie</button>
       </div>
     </div>
 
     <a id="create" routerLink="/create">
-      <button type="button" class="btn btn-success">
+      <button type="button" class="btn btn-success" style="background-color: #27ae60">
         <div id="addEvent">
           <div class="padding-right">Dodaj</div>
           <div id="plus"><i class="fa fa-plus fa-1x"></i></div>

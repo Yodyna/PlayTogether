@@ -1,4 +1,4 @@
-import { Directive, Renderer2, ElementRef, OnInit, Input } from '@angular/core';
+import { Directive, Renderer2, ElementRef, OnInit, Input, HostListener } from '@angular/core';
 import { TimeOfGame } from '../models/timeOfGame';
 
 @Directive({
@@ -8,7 +8,6 @@ export class TimeOfGameViewDirective implements OnInit {
 
   @Input()
   private timeOfGameArray: Array<TimeOfGame>;
-
   private dt = new Date();
   private months = ['STY', 'LUT', 'MAR', 'KWI', 'MAJ', 'CZE', 'LIP', 'SIE', 'WRZ', 'PAZ', 'LIS', 'GRU'];
   constructor(private el: ElementRef, private renderer: Renderer2) { }

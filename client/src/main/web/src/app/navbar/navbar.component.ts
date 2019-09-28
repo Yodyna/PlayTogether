@@ -4,6 +4,9 @@ import { Session } from '../models/session';
 import { AdvertisementService } from '../services/advertisement.service';
 import { Advertisement } from '../models/advertisement';
 import { UserService } from '../services/user.service';
+import { AngularSvgIconModule } from 'angular-svg-icon';
+
+import './images/image2vector.svg';
 
 @Component({
   selector: 'app-navbar',

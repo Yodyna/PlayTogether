@@ -65,6 +65,7 @@ import { CookieService } from 'ngx-cookie-service';
 // tslint:disable-next-line:max-line-length
 import { EventManagementDialogComponent } from './advertisement/advertisement-details/event-management-dialog/event-management-dialog.component';
 import { ShowTimeDirective } from './shared/show-time.directive';
+import { AngularSvgIconModule } from 'angular-svg-icon';
 
 
 @NgModule({
@@ -148,7 +149,8 @@ import { ShowTimeDirective } from './shared/show-time.directive';
     MatToolbarModule,
     MatTooltipModule,
     MatTreeModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    AngularSvgIconModule
   ],
   providers: [AdvertisementService, CookieService, HttpService, {provide: LocationStrategy, useClass: HashLocationStrategy}],
   entryComponents: [ AccountDialogComponent, EventManagementDialogComponent],

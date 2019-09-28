@@ -3,6 +3,10 @@
     margin: 0;
     height: 100%; 
     overflow: hidden;
-    background-color: #f8f9fa;
+    /* background-color: #f8f9fa; */
+    background-color: #EDEAE8;
+    font-family: 'Bree Serif', serif;
+    /* background: #dddedf; */
+    /* font-family: 'Chilanka', cursive; */
 }
 

@@ -68,7 +68,7 @@
 
             <div id="benefits" class="col-md-12 pb-4 h-30">
               <div *ngIf="session.authenticated">
-                <div class="card card-inverse card-success text-center h-100">
+                <div class="card card-inverse card text-center h-100">
                   <div class="button123" *ngIf="participant == 'true'; then remove123; else join123">
                   </div>
                 </div>
@@ -87,5 +87,5 @@
 </ng-template>
 
 <ng-template #join123>
-  <button class="btn btn-success submit" (click)=submit()>Dołącz do wydarzenia</button>
+  <button class="btn submit" style="background: #487eb0; color: white" (click)=submit()>Dołącz do wydarzenia</button>
 </ng-template>

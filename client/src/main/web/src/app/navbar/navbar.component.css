@@ -1,11 +1,15 @@
 nav {
   display: flex;
-  align-items: center;
-  padding: 15px;
+  /* justify-content: space-between; */
+  padding: 0px;
   margin-bottom: 25px;
+  background: #0e1926;
+  padding-left: 15px;
+  padding-right: 15px;
 }
-#inputSearch {
-  max-width: 40vmax;
+.test {
+  border-style: solid;
+  border-color: #487eb0;
 }
 #addEvent {
   display: flex;
@@ -19,7 +23,6 @@ nav {
 }
 .right-navbar {
   display: flex;
-  align-items: baseline;
   justify-content: flex-end;
 }
 #account, #message, #notification {
@@ -28,7 +31,6 @@ nav {
 #plus {
   margin-left: 0.25rem;
 }
-
 .dropdown {
  padding: 0px;
  padding-bottom: 0px;
@@ -40,35 +42,33 @@ div h5 {
   padding: 10px;
   margin: 0px;
   font-size: 16px;
-  font-weight: 700;
+  /* font-weight: 700; */
   text-align: center;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
   color: #fff;
 }
-
 .account-button-focus:focus {
-  background: #27ae60;
+  background: #487eb0;
 }
-
 .message-button-focus:focus {
-  background-color: #3498db;
+  background: #487eb0;
 }
-
 #message-droptown {
-  border: 1px solid #3498db;
+  /* border: 1px solid #3498db; */
+  border: 1px solid #487eb0;
 }
-
 #message-droptown h5 {
-  background: #3498db;
+  /* background: #3498db; */
+  background: #487eb0;
 }
-
 #account-droptown {
-  border: 1px solid #27ae60;
+  /* border: 1px solid #27ae60; */
+  border: 1px solid #487eb0;
 }
-
 #account-droptown h5 {
-  background: #27ae60;
+  /* background: #27ae60; */
+  background: #487eb0;
 }
 div button{
   border: 0.1px solid #d7e7ee;
@@ -79,5 +79,30 @@ div button{
 @media (max-width: 570.00px) {
   .right-navbar {
     margin-top: 10px;
+    margin-bottom: 10px;
   }
+  nav {
+    flex-flow: column ;
+    align-items: flex-start;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  #inputSearch {
+    /* min-width: 55vh;  */
+  }
+  #testx {
+    display: flex;
+    justify-content: space-between; 
+    align-items: baseline;
+    /* align-items: center;   */
+    /* min-width: 55vh; */
+  }
+  #message {
+    margin-left: 0px;
+  }
+}
+#brand {
+  color: white;
+  font-size: 1.7rem;
+  font-weight: bold;
 }

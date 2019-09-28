@@ -24,11 +24,12 @@
     border: 1px solid rgb(168, 168, 168);
 }
 #addEvent {
-    background-color: dodgerblue; 
+    background-color:#487eb0; 
+    color: white;
 }
-#addEvent:hover {
+/* #addEvent:hover {
     background-color: rgb(46, 46, 204);
-}
+}  */
 #removeEvent {
     background-color: #f03c3c;
 }

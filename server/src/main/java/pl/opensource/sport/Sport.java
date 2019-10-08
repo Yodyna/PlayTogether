@@ -37,6 +37,7 @@ public enum Sport {
 	Volleyball("FIVB", "Fédération Internationale de Volleyball", "Siatkówka"),
 	Wrestling("UWW", "United World Wrestling", "Zapasy"),
 	Squash("WSF", "World Squash Federation", "Squash"),
+	Swimming("SWI", "World Para Swimming", "Pływanie"),
 	Other("OTH", "Another", "Inny");
 	
 	private String abbreviation;

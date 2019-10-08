@@ -66,6 +66,8 @@ import { CookieService } from 'ngx-cookie-service';
 import { EventManagementDialogComponent } from './advertisement/advertisement-details/event-management-dialog/event-management-dialog.component';
 import { ShowTimeDirective } from './shared/show-time.directive';
 import { AngularSvgIconModule } from 'angular-svg-icon';
+import { AdvertisementSearch2Component } from './advertisement/advertisement-search2/advertisement-search2.component';
+import { FullTimePipe } from './shared/full-time.pipe';
 
 
 @NgModule({
@@ -85,14 +87,16 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
     UndefinedPipe,
     Navbar2Component,
     EventManagementDialogComponent,
-    ShowTimeDirective
+    ShowTimeDirective,
+    AdvertisementSearch2Component,
+    FullTimePipe
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot([
       { path: 'create', component: AdvertisementCreateComponent },
-      { path: '', component: AdvertisementSearchComponent },
-      { path: 'search', component: AdvertisementSearchComponent },
+      { path: '', component: AdvertisementSearch2Component },
+      { path: 'search', component: AdvertisementSearch2Component },
       { path: 'login', component: LoginComponent },
       { path: 'detail/:id', component: AdvertisementDetailsComponent },
       { path: 'account', component: AccountComponent}

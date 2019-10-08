@@ -1,0 +1,147 @@
+#advertisementList {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    padding-left: 10vh;
+    padding-right: 10vh;
+  }
+  .advertisement {
+    background-color: white;
+    margin: 7px;
+    padding: 0;
+    /* padding: 7px; */
+    display: flex;
+    flex-flow: column wrap;
+    width: 265px;
+    /* padding-right: 25px; */
+    height: 120px;
+    box-shadow: 0 1px 2px rgba(0,0,0,1);
+
+    /* background: linear-gradient(to right, #487eb0 50%, white 50%);
+    background-size: 200% 100%;
+    background-position: right bottom;
+    transition: all .5s ease-out; */
+  }
+  .advertisement:hover {
+    /* box-shadow: 0 3px 8px rgba(0,0,0,1);
+     /* Old browsers */
+     /* background-position: left bottom;  */
+     /* cursor: pointer; */
+     cursor: pointer;
+  }
+
+  span{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+  }
+  .numberCircle {
+    border-radius: 50%;
+    width: 34px;
+    height: 34px;
+    padding: 2px; 
+    border: 1px solid rgb(0, 0, 0);
+    color: rgb(0, 0, 0);
+    text-align: center; 
+    font: 10px 'Poppins', sans-serif;
+    box-shadow: 0 2px 6px rgba(0,0,0,1);
+  }
+  .numberCircle:hover {
+    background: #487eb0;
+    color: #fff;
+    box-shadow: 0px 8px 16px rgba(0,0,0,1);
+  }
+  #calendar {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+  }
+  .content {
+    height: 100%;
+    width: 100%;
+  }
+  #calendar > * {
+    margin-right: 0.125rem;
+  }
+  .month {
+    font: 10px 'Poppins', sans-serif;
+  }
+  fa-icon {
+    margin-right: 0,125px;
+  }
+  p {
+    margin: 0px;
+    padding: 2px;
+  }
+  .showTime{
+    border: 1.5px solid #487eb0;
+    border-radius: 10px;
+    background-color: white;
+    top:0;
+    left:0;
+    z-index: 1;
+  }
+  #right-container {
+    margin: 1px;
+    padding-top: 5px;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-between;
+    border: 1px solid black;
+  }
+  .inscription {
+    padding: 10px;
+    margin: 0px;
+    font-size: 16px;
+    text-align: center;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    color: #fff;
+    background-color: #487eb0;
+  }
+  @media (max-width: 575.98px) {
+    #advertisementList {
+      padding-left: 0px;
+      padding-right: 0px;
+    }
+  }
+  #right-container {
+      display: inline;
+      text-align: center;
+  }
+  /* .advertisement .link .overlay {
+    position: sticky;
+    bottom:20px;
+    right: 20px;
+    width: 50px;
+    height: 50px; 
+    background: red;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    cursor: pointer;
+    transition: 0.5s;
+    border: 1px solid red;
+    margin: 10px;
+  } */
+  .link {
+    padding: 0;
+    margin: 0;
+  }
+  .overlay{
+    padding: 0;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    box-shadow: none;
+    border-radius: 0;
+    /* opacity: 0.9;     */
+    /* background-color: #487eb0;
+    background: red; */
+    background-position: left bottom; 
+
+/*     
+    background: linear-gradient(to right, #487eb0 50%, white 50%);
+    background-size: 200% 100%;
+    background-position: right bottom;
+    transition: all .5s ease-out; */
+  } 

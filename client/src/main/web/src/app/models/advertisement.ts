@@ -17,4 +17,6 @@ export interface Advertisement {
     maxNumberOfParticipants?: number;
     actualNumberOfParticipants?: number;
     user?: User;
+    changeText?: false;
+    color?: String;
 }
